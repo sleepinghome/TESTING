@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공지사항</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f3f2ee;
+  --surface:#ffffff;
+  --surface-2:#eef1f5;
+  --ink:#16202c;
+  --ink-dim:#4c5866;
+  --ink-faint:#8993a1;
+  --line:#d9dee4;
+  --line-soft:#e8ebef;
+  --accent:#19407D;
+  --accent-soft:#e4ebf4;
+  --accent-ink:#ffffff;
+  --step1:#00ADE4;
+  --step2:#002855;
+  --warn:#8a5a12;
+  --warn-soft:#fbf0dd;
+  --danger:#a8271f;
+  --danger-soft:#fbeae9;
+  --shadow: 0 1px 2px rgba(20,30,35,.06), 0 6px 20px -8px rgba(20,30,35,.12);
+  --radius: 12px;
+  color-scheme: light;
+  font-synthesis:none;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161c; --surface:#1a2028; --surface-2:#212832;
+    --ink:#e8ecf1; --ink-dim:#a9b3bf; --ink-faint:#6d7885;
+    --line:#2c3541; --line-soft:#232b35;
+    --accent:#4f86d6; --accent-soft:#1c2836; --accent-ink:#0b1420;
+    --step1:#5cc9ef; --step2:#7c93b8;
+    --warn:#e8b364; --warn-soft:#2c2413;
+    --danger:#e8766c; --danger-soft:#2c1715;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161c; --surface:#1a2028; --surface-2:#212832;
+  --ink:#e8ecf1; --ink-dim:#a9b3bf; --ink-faint:#6d7885;
+  --line:#2c3541; --line-soft:#232b35;
+  --accent:#4f86d6; --accent-soft:#1c2836; --accent-ink:#0b1420;
+  --step1:#5cc9ef; --step2:#7c93b8;
+  --warn:#e8b364; --warn-soft:#2c2413;
+  --danger:#e8766c; --danger-soft:#2c1715;
+  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
+  color-scheme: dark;
+}
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans KR','Noto Sans KR',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+h1,h2,h3,h4{ text-wrap:balance; margin:0; font-weight:700; letter-spacing:-.01em; }
+p{ margin:0; }
+a{ color:inherit; }
+.mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+
+.brand-header{ position:sticky; top:env(safe-area-inset-top,0px); z-index:40; border-bottom:1px solid var(--line); }
+.brand-top{ background:var(--surface); }
+.brand-top-inner{ max-width:820px; margin:0 auto; padding:10px 22px; display:flex; align-items:center; gap:9px; }
+.brand-logo{ width:26px; height:26px; border-radius:50%; background:var(--step1); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px; flex:none; }
+.brand-name{ font-weight:700; color:var(--accent); font-size:15px; letter-spacing:-0.01em; }
+.brand-nav{ background:var(--step2); }
+.brand-nav-inner{ max-width:820px; margin:0 auto; padding:8px 22px; color:#fff; font-size:13px; font-weight:600; letter-spacing:-0.01em; }
+
+main{ max-width:820px; margin:0 auto; padding:26px 22px 64px; display:flex; flex-direction:column; gap:18px; }
+
+.back{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-faint); text-decoration:none; width:fit-content; }
+.back:hover{ color:var(--ink-dim); }
+
+.hero h1{ font-size:21px; }
+.hero .sub{ margin-top:6px; font-size:13px; color:var(--ink-dim); }
+
+.panel{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 20px 18px; }
+.panel-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:8px; }
+.panel-head h2{ font-size:14.5px; }
+.panel-head .cnt{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); }
+
+.n-list{ display:flex; flex-direction:column; }
+a.n-item{ display:flex; gap:12px; align-items:flex-start; padding:13px 2px; border-top:1px solid var(--line-soft); text-decoration:none; color:inherit; }
+.n-item:first-child{ border-top:none; }
+.n-item .tag{ flex:none; margin-top:2px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--warn); background:var(--warn-soft); border-radius:999px; padding:3px 9px; }
+.n-item .body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+.n-item .t{ font-size:14px; font-weight:600; color:var(--ink); }
+.n-item:hover .t{ text-decoration:underline; text-underline-offset:2px; }
+.n-item .d{ font-size:12px; color:var(--ink-faint); }
+.n-item .due{ flex:none; margin-top:2px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); white-space:nowrap; }
+
+.empty{ padding:22px 4px; text-align:center; color:var(--ink-faint); font-size:13px; }
+
+footer.note{ max-width:820px; margin:0 auto; padding:0 22px 40px; color:var(--ink-faint); font-size:12px; }
+</style>
+</head>
+<body>
+
+
+<div class="brand-header">
+  <div class="brand-top"><div class="brand-top-inner"><span class="brand-logo">D</span><span class="brand-name">대방산업개발</span></div></div>
+  <div class="brand-nav"><div class="brand-nav-inner">업무도우미 · 공지사항</div></div>
+</div>
+
+<main>
+  <a class="back" href="설비팀_메인페이지.html">← 메인페이지로</a>
+
+  <section class="hero">
+    <h1>공지사항</h1>
+    <p class="sub">설비팀 전체 공지 및 전파사항을 모아봅니다.</p>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>진행중</h2>
+      <span class="cnt mono" id="activeCnt"></span>
+    </div>
+    <div class="n-list" id="activeList"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>지난 공지</h2>
+      <span class="cnt mono" id="pastCnt"></span>
+    </div>
+    <div class="n-list" id="pastList"></div>
+  </section>
+</main>
+
+<footer class="note">공지 등록 · 수정 요청은 파트장에게 문의하세요.</footer>
+
+<script>
+(function(){
+  // 공지사항 목록 — 새 공지는 이 배열에 추가하세요. status: 'active' | 'past'
+  var NOTICES = [
+    {
+      status: 'active',
+      tag: '전파사항',
+      title: '건설기술인 협회 승급교육 및 회비 관련 전파사항',
+      desc: '협회 등록 등급 미달 기술인 대상 · 승급교육 이수 및 결과 제출',
+      due: '~11.30',
+      url: '공지_건설기술인협회_승급교육.html'
+    }
+  ];
+
+  function renderGroup(listEl, cntEl, items){
+    cntEl.textContent = items.length + '건';
+    if (!items.length){
+      listEl.innerHTML = '<div class="empty">표시할 공지가 없습니다.</div>';
+      return;
+    }
+    listEl.innerHTML = items.map(function(n){
+      return '<a class="n-item" href="' + n.url + '" target="_blank" rel="noopener">' +
+        '<span class="tag">' + n.tag + '</span>' +
+        '<span class="body"><span class="t">' + n.title + '</span><span class="d">' + n.desc + '</span></span>' +
+        '<span class="due">' + n.due + '</span>' +
+      '</a>';
+    }).join('');
+  }
+
+  var active = NOTICES.filter(function(n){ return n.status === 'active'; });
+  var past = NOTICES.filter(function(n){ return n.status === 'past'; });
+
+  renderGroup(document.getElementById('activeList'), document.getElementById('activeCnt'), active);
+  renderGroup(document.getElementById('pastList'), document.getElementById('pastCnt'), past);
+})();
+</script>
+
+</body>
+</html>

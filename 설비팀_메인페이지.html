@@ -91,6 +91,8 @@ main{ max-width:1320px; margin:0 auto; padding:28px 22px 64px; display:flex; fle
 .panel-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
 .panel-head h3{ font-size:15.5px; }
 .panel-head .updated{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); }
+.panel-head .seeall{ font-size:12px; font-weight:600; color:var(--accent); text-decoration:none; white-space:nowrap; }
+.panel-head .seeall:hover{ text-decoration:underline; text-underline-offset:2px; }
 .news-list{ display:flex; flex-direction:column; }
 .news-item{ display:flex; align-items:baseline; gap:12px; padding:11px 2px; border-top:1px solid var(--line-soft); text-decoration:none; color:inherit; min-width:0; }
 .news-item:first-child{ border-top:none; }
@@ -145,6 +147,8 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
 </style>
 </head>
 <body>
+
+
 <div class="brand-header">
   <div class="brand-top"><div class="brand-top-inner"><span class="brand-logo">D</span><span class="brand-name">대방산업개발</span></div></div>
   <div class="brand-nav"><div class="brand-nav-inner">업무도우미 · 설비팀 메인페이지</div></div>
@@ -159,6 +163,7 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
   <section class="panel notice-panel">
     <div class="panel-head">
       <h3>부서 공지사항</h3>
+      <a class="seeall" href="공지사항_목록.html" target="_blank" rel="noopener">전체보기 →</a>
     </div>
     <div class="notice-list" id="noticeList">
       <a class="notice-item" href="공지_건설기술인협회_승급교육.html" target="_blank" rel="noopener">
@@ -253,5 +258,6 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
   }
 })();
 </script>
+
 </body>
 </html>
