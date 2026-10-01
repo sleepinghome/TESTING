@@ -3,67 +3,73 @@
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
   :root{
-    --bg:#eef1ef;
+    --bg:#f3f2ee;
     --surface:#ffffff;
-    --surface-2:#e2e8e5;
-    --ink:#1a2330;
-    --ink-dim:#55636b;
-    --ink-faint:#7c8a91;
-    --line:#c9d2ce;
-    --line-soft:#dbe1de;
-    --accent:#1f5f7a;
+    --surface-2:#eef1f5;
+    --ink:#16202c;
+    --ink-dim:#4c5866;
+    --ink-faint:#8993a1;
+    --line:#d9dee4;
+    --line-soft:#e8ebef;
+    --accent:#19407D;
     --accent-ink:#ffffff;
-    --accent-soft:#dbe9ee;
-    --quality:#2f7d55;
-    --quality-soft:#dcefe1;
-    --general:#a8641a;
-    --general-soft:#f3e6d3;
+    --accent-soft:#e4ebf4;
+    --quality:#1c7a4a;
+    --quality-soft:#e8f6ee;
+    --general:#8a5a12;
+    --general-soft:#fbf0dd;
     --subcontract:#6a4e9c;
     --subcontract-soft:#e9e3f5;
+    --brand-step1:#00ADE4;
+    --brand-step2:#002855;
     --shadow: 0 1px 2px rgba(20,30,35,.06), 0 6px 20px -8px rgba(20,30,35,.12);
-    --radius: 10px;
+    --radius: 12px;
     font-synthesis: none;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#0f1821;
-      --surface:#16212c;
-      --surface-2:#1c2833;
-      --ink:#dfe7ea;
-      --ink-dim:#98a7ae;
-      --ink-faint:#6d7c84;
-      --line:#2b3b45;
-      --line-soft:#22303a;
-      --accent:#6fb4d1;
-      --accent-ink:#0b1c24;
-      --accent-soft:#1c3641;
-      --quality:#68c493;
-      --quality-soft:#173327;
-      --general:#e0a458;
-      --general-soft:#39280f;
+      --bg:#12161c;
+      --surface:#1a2028;
+      --surface-2:#212832;
+      --ink:#e8ecf1;
+      --ink-dim:#a9b3bf;
+      --ink-faint:#6d7885;
+      --line:#2c3541;
+      --line-soft:#232b35;
+      --accent:#4f86d6;
+      --accent-ink:#0b1420;
+      --accent-soft:#1c2836;
+      --quality:#5fd08c;
+      --quality-soft:#122a1d;
+      --general:#e8b364;
+      --general-soft:#2c2413;
       --subcontract:#b79ce6;
       --subcontract-soft:#291f3d;
+      --brand-step1:#5cc9ef;
+      --brand-step2:#7c93b8;
       --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
     }
   }
   :root[data-theme="dark"]{
-    --bg:#0f1821;
-    --surface:#16212c;
-    --surface-2:#1c2833;
-    --ink:#dfe7ea;
-    --ink-dim:#98a7ae;
-    --ink-faint:#6d7c84;
-    --line:#2b3b45;
-    --line-soft:#22303a;
-    --accent:#6fb4d1;
-    --accent-ink:#0b1c24;
-    --accent-soft:#1c3641;
-    --quality:#68c493;
-    --quality-soft:#173327;
-    --general:#e0a458;
-    --general-soft:#39280f;
+    --bg:#12161c;
+    --surface:#1a2028;
+    --surface-2:#212832;
+    --ink:#e8ecf1;
+    --ink-dim:#a9b3bf;
+    --ink-faint:#6d7885;
+    --line:#2c3541;
+    --line-soft:#232b35;
+    --accent:#4f86d6;
+    --accent-ink:#0b1420;
+    --accent-soft:#1c2836;
+    --quality:#5fd08c;
+    --quality-soft:#122a1d;
+    --general:#e8b364;
+    --general-soft:#2c2413;
     --subcontract:#b79ce6;
     --subcontract-soft:#291f3d;
+    --brand-step1:#5cc9ef;
+    --brand-step2:#7c93b8;
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
   }
 
@@ -79,9 +85,20 @@
   .mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
   a{ color:inherit; }
 
-  /* ---------- header ---------- */
+  /* ---------- brand header (대방산업개발 · 업무도우미) ---------- */
+  .brand-header{ position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line); }
+  .brand-top{ background:var(--surface); }
+  .brand-top-inner{ max-width:1180px; margin:0 auto; padding:10px 22px; display:flex; align-items:center; gap:9px; }
+  .brand-logo{ width:26px; height:26px; border-radius:50%; background:var(--brand-step1); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px; flex:none; }
+  .brand-name{ font-weight:700; color:var(--accent); font-size:15px; letter-spacing:-0.01em; }
+  .brand-nav{ background:var(--brand-step2); }
+  .brand-nav-inner{ max-width:1180px; margin:0 auto; padding:8px 22px; display:flex; align-items:center; justify-content:space-between; gap:14px; color:#fff; font-size:13px; font-weight:600; letter-spacing:-0.01em; }
+  .brand-nav-inner .back{ color:#fff; opacity:.8; text-decoration:none; font-weight:500; font-size:12.5px; white-space:nowrap; }
+  .brand-nav-inner .back:hover{ opacity:1; text-decoration:underline; }
+
+  /* ---------- toolbar (search · pills · crosslink) ---------- */
   header.top{
-    position:sticky; top:0; z-index:40;
+    position:sticky; top:79px; z-index:40;
     background:color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter:blur(10px) saturate(1.1);
     border-bottom:1px solid var(--line);
@@ -90,17 +107,7 @@
     max-width:1180px; margin:0 auto; padding:14px 22px;
     display:flex; align-items:center; gap:18px; flex-wrap:wrap;
   }
-  .brand{ display:flex; align-items:baseline; gap:10px; margin-right:auto; }
-  .brand .mark{
-    width:30px; height:30px; border-radius:7px;
-    background:var(--accent); color:var(--accent-ink);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px;
-    flex:none;
-  }
-  .brand h1{ font-size:18px; }
-  .brand .sub{ font-size:12.5px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; }
-  .crosslink{ font-size:12.5px; color:var(--accent); font-family:'IBM Plex Mono',monospace; text-decoration:none; border:1px solid var(--line); padding:6px 12px; border-radius:999px; white-space:nowrap; }
+  .crosslink{ font-size:12.5px; color:var(--accent); font-family:'IBM Plex Mono',monospace; text-decoration:none; border:1px solid var(--line); padding:6px 12px; border-radius:999px; white-space:nowrap; margin-left:auto; }
   .crosslink:hover{ border-color:var(--accent); }
 
   .search-wrap{ position:relative; flex:1 1 220px; max-width:320px; }
@@ -242,23 +249,22 @@
 
   ::-webkit-scrollbar{ height:8px; width:8px; }
   ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:99px; }
+.brand-logo-img{height:22px;width:auto;display:block;}
 </style>
+
+<div class="brand-header">
+  <div class="brand-top"><div class="brand-top-inner"><img class="brand-logo-img" src="data:image/png;base64,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" alt="대방산업개발"></div></div>
+  <div class="brand-nav"><div class="brand-nav-inner"><span>업무도우미 · 설비팀 업무절차서</span><a class="back" href="설비팀_메인페이지.html">← 메인페이지</a></div></div>
+</div>
 
 <header class="top">
   <div class="top-inner">
-    <div class="brand">
-      <div class="mark">7B</div>
-      <div>
-        <h1>설비팀 업무절차서</h1>
-        <div class="sub">대방산업개발 · 기술본부 7-B-2</div>
-      </div>
-    </div>
-    <a class="crosslink" href="표준시방서.html" target="_blank" rel="noopener">표준시방서 보기 →</a>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input id="search" type="text" placeholder="절차, 부서, 서식으로 검색…" autocomplete="off">
     </div>
     <nav class="pills" id="pills"></nav>
+    <a class="crosslink" href="표준시방서.html" target="_blank" rel="noopener">표준시방서 보기 →</a>
   </div>
 </header>
 
