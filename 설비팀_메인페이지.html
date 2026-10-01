@@ -118,6 +118,52 @@ a.notice-item:hover .txt{ text-decoration:underline; text-underline-offset:2px; 
 .notice-item .due{ flex:none; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); }
 .notice-empty{ color:var(--ink-faint); font-size:13px; }
 
+/* 메인 2단 그리드: 업무 지시사항 (넓게) + 법규/업계소식 (좁게, 세로 스택) */
+.main-grid{ display:grid; grid-template-columns:1fr 272px; gap:20px; align-items:start; }
+@media (max-width:860px){ .main-grid{ grid-template-columns:1fr; } }
+.side-stack{ width:272px; display:flex; flex-direction:column; gap:20px; min-width:0; }
+@media (max-width:860px){ .side-stack{ width:auto; } }
+.panel.compact{ padding:16px 18px 18px; }
+
+/* 업무 지시사항 (커뮤니티 게시판식) */
+.board-list{ display:flex; flex-direction:column; }
+.board-item{ display:flex; gap:12px; padding:12px 2px; border-top:1px solid var(--line-soft); align-items:flex-start; }
+.board-item:first-child{ border-top:none; }
+.board-item .meta{ flex:none; width:58px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-faint); line-height:1.5; }
+.board-item .body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+.board-item .who{ font-size:11.5px; font-weight:600; color:var(--accent); display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.board-item .who .arrow{ color:var(--ink-faint); font-weight:400; }
+.board-item .txt{ font-size:13.5px; color:var(--ink); line-height:1.5; }
+.board-empty{ color:var(--ink-faint); font-size:13px; }
+
+/* 전달사항 댓글 (claude.ai 버전에서만 동작 — 깃허브 버전은 미리보기용 UI) */
+.cmt-wrap{ margin-top:8px; }
+.cmt-toggle{ background:none; border:none; padding:0; font-size:11.5px; color:var(--ink-faint); cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:4px; }
+.cmt-toggle:hover{ color:var(--accent); }
+.cmt-panel{ margin-top:8px; padding-top:8px; border-top:1px dashed var(--line-soft); display:none; }
+.cmt-panel.open{ display:block; }
+.cmt-list{ display:flex; flex-direction:column; gap:8px; margin-bottom:8px; }
+.cmt-row{ display:flex; gap:8px; align-items:flex-start; font-size:12.5px; }
+.cmt-row .body2{ flex:1; min-width:0; }
+.cmt-row .name2{ font-weight:600; color:var(--ink); margin-right:6px; }
+.cmt-row .time2{ color:var(--ink-faint); font-size:10.5px; }
+.cmt-row .text2{ color:var(--ink-dim); margin-top:2px; }
+.cmt-empty{ color:var(--ink-faint); font-size:12px; }
+.cmt-form{ display:flex; gap:8px; }
+.cmt-form textarea{ flex:1; resize:none; min-height:32px; max-height:80px; border:1px solid var(--line); border-radius:8px; padding:6px 10px; font:inherit; font-size:12.5px; }
+.cmt-form button{ flex:none; border:none; border-radius:8px; background:var(--accent); color:#fff; padding:0 14px; font-size:12.5px; font-weight:600; cursor:pointer; }
+.cmt-form button:disabled{ opacity:.5; cursor:default; }
+
+/* 설비 관련 법규 (고정 링크 목록) */
+.law-list{ display:flex; flex-direction:column; }
+.law-item{ display:flex; flex-direction:column; gap:2px; padding:10px 2px; border-top:1px solid var(--line-soft); text-decoration:none; color:inherit; }
+.law-item:first-child{ border-top:none; }
+.law-item .name{ font-size:13px; font-weight:700; }
+.law-item:hover .name{ text-decoration:underline; text-underline-offset:2px; }
+.law-item .desc{ font-size:11.5px; color:var(--ink-dim); }
+.law-more{ background:none; border:none; padding:6px 2px 0; font-size:11.5px; color:var(--accent); font-weight:600; cursor:pointer; font-family:inherit; }
+.law-more:hover{ text-decoration:underline; text-underline-offset:2px; }
+
 /* 바로가기 버튼 3개 */
 .quicklinks{ display:flex; flex-direction:column; gap:14px; }
 @media (min-width:980px){
@@ -148,8 +194,6 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
 </style>
 </head>
 <body>
-
-
 <div class="brand-header">
   <div class="brand-top"><div class="brand-top-inner"><img class="brand-logo-img" src="data:image/png;base64,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" alt="대방산업개발"></div></div>
   <div class="brand-nav"><div class="brand-nav-inner">업무도우미 · 설비팀 메인페이지</div></div>
@@ -175,18 +219,46 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
     </div>
   </section>
 
-  <section class="panel">
-    <div class="panel-head">
-      <h3>업계 소식</h3>
-      <span class="updated" id="newsUpdated">갱신 —</span>
-    </div>
-    <div class="news-group">
-      <div class="news-group-label">오늘의 건설업계 뉴스</div>
-      <div class="news-list" id="newsList"></div>
-    </div>
-    <div class="news-group">
-      <div class="news-group-label">기계설비신문</div>
-      <div class="news-list" id="kmecList"></div>
+  <section class="main-grid">
+    <section class="panel">
+      <div class="panel-head">
+        <h3>업무 전달사항</h3>
+        <span class="updated mono" style="color:var(--ink-faint);">최종 갱신 2026.10.01</span>
+      </div>
+      <div class="board-list" id="boardList"></div>
+    </section>
+
+    <div class="side-stack">
+      <section class="panel compact">
+        <div class="panel-head">
+          <h3>설비 관련 법규</h3>
+        </div>
+        <div class="law-list">
+          <a class="law-item" href="https://www.law.go.kr/법령/기계설비법" target="_blank" rel="noopener">
+            <span class="name">기계설비법</span>
+            <span class="desc">기계설비 설계·시공·유지관리 기준 — 원문·개정이력 보기</span>
+          </a>
+        </div>
+        <button type="button" class="law-more" id="lawMoreBtn">소방시설법·건축법 보기 +2</button>
+        <div class="law-list" id="lawMoreList" style="display:none;">
+          <a class="law-item" href="https://www.law.go.kr/법령/소방시설설치및관리에관한법률" target="_blank" rel="noopener">
+            <span class="name">소방시설 설치 및 관리에 관한 법률</span>
+            <span class="desc">소방시설 설치·점검·유지관리 기준 — 원문·개정이력 보기</span>
+          </a>
+          <a class="law-item" href="https://www.law.go.kr/법령/건축법" target="_blank" rel="noopener">
+            <span class="name">건축법</span>
+            <span class="desc">건축설비 관련 조항(환기·급배수 등) — 원문·개정이력 보기</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="panel compact">
+        <div class="panel-head">
+          <h3>업계 소식</h3>
+          <span class="updated" id="newsUpdated">갱신 —</span>
+        </div>
+        <div class="news-list" id="newsList"></div>
+      </section>
     </div>
   </section>
 
@@ -216,11 +288,121 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
 
 <script>
 (function(){
+  // 업무 전달사항 — 각 항목: [고유id, 날짜, 시간, 지시자, 지시대상, 내용]
+  // id는 댓글을 특정 글에 연결하는 값이라, 내용을 고치더라도 바꾸지 않는 게 좋습니다.
+  var BOARD = [
+    ['b3', '2026.10.01', '08:00', '정성주 사원', '설비팀 전체', '각 현장별 주간업무 공정표는 제목 및 내용을 정확히 작성하여 송부 바랍니다.'],
+    ['b2', '2026.09.30', '08:00', '이연주 주임', '설비팀 전체', '매달 말일 건설기술인협회·소방시설협회 등급 현황을 이연주 주임 개인 메신저로 전달 바랍니다.'],
+    ['b1', '2026.09.29', '14:30', '장준영 차장', '설비팀 전체', '날씨가 많이 추워졌습니다. 현장 관리자 및 협력업체 작업자분들 모두 건강관리에 유념하시어 안전하게 작업하실 수 있도록 당부드립니다.']
+  ];
+
+  var boardList = document.getElementById('boardList');
+  if (boardList){
+    if (BOARD.length){
+      boardList.innerHTML = BOARD.map(function(b){
+        var id = b[0], date = b[1], time = b[2], who = b[3], target = b[4], content = b[5];
+        return '<div class="board-item" data-post="' + id + '">' +
+          '<div class="meta mono">' + date + '<br>' + time + '</div>' +
+          '<div class="body">' +
+            '<div class="who">' + who + '<span class="arrow">→</span>' + target + '</div>' +
+            '<div class="txt">' + content + '</div>' +
+            '<div class="cmt-wrap">' +
+              '<button type="button" class="cmt-toggle" data-post-toggle="' + id + '">💬 댓글 <span class="cnt" data-cnt="' + id + '">0</span></button>' +
+              '<div class="cmt-panel" data-panel="' + id + '">' +
+                '<div class="cmt-list" data-list="' + id + '"><span class="cmt-empty">아직 댓글이 없습니다.</span></div>' +
+                '<div class="cmt-form">' +
+                  '<textarea rows="1" placeholder="댓글을 입력하세요 (claude.ai 버전에서만 저장됩니다)" data-input="' + id + '"></textarea>' +
+                  '<button type="button" data-submit="' + id + '">등록</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      document.querySelectorAll('[data-post-toggle]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var panel = document.querySelector('[data-panel="' + btn.getAttribute('data-post-toggle') + '"]');
+          if (panel) panel.classList.toggle('open');
+        });
+      });
+    } else {
+      boardList.innerHTML = '<div class="board-empty">등록된 전달사항이 없습니다.</div>';
+    }
+  }
+
+  // 댓글 — claude.ai로 열람할 때만 작동합니다 (db/user 런타임 기능 사용).
+  // 깃허브 등 정적 호스팅에서는 window.claude가 없어서 아래가 그냥 조용히 건너뛰어지고,
+  // 댓글 UI는 보이되 저장은 안 되는 미리보기 상태로만 남습니다.
+  (async function(){
+    if (!BOARD.length || !window.claude || typeof window.claude.use !== 'function') return;
+    var db, user;
+    try {
+      db = await window.claude.use('db');
+      user = await window.claude.use('user');
+    } catch (e) { return; }
+    if (!db) return;
+
+    var myId = null;
+    try { myId = user ? await user.id() : null; } catch (e) {}
+
+    function escapeHtml(s){
+      return String(s).replace(/[<>&]/g, function(c){ return { '<':'&lt;', '>':'&gt;', '&':'&amp;' }[c]; });
+    }
+
+    BOARD.forEach(function(b){
+      var postId = b[0];
+      var q = db.collection('comments').where('postId', '==', postId).orderBy('ts', 'asc').limit(100);
+      q.onSnapshot(async function(snap){
+        var listEl = document.querySelector('[data-list="' + postId + '"]');
+        var cntEl = document.querySelector('[data-cnt="' + postId + '"]');
+        if (cntEl) cntEl.textContent = String(snap.size);
+        if (!listEl) return;
+        if (snap.empty){
+          listEl.innerHTML = '<span class="cmt-empty">아직 댓글이 없습니다.</span>';
+          return;
+        }
+        var ids = snap.docs.map(function(d){ return (d.data() || {}).authorId; }).filter(Boolean);
+        var profiles = {};
+        try { if (user && ids.length) profiles = await user.profiles(ids); } catch (e) {}
+        listEl.innerHTML = snap.docs.map(function(d){
+          var data = d.data() || {};
+          var p = profiles[data.authorId] || {};
+          var name = escapeHtml(p.name || '익명');
+          var when = '';
+          try { if (data.ts) when = new Date(data.ts).toLocaleString('ko-KR', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }); } catch (e) {}
+          var text = escapeHtml(data.text || '');
+          return '<div class="cmt-row"><div class="body2"><span class="name2">' + name + '</span><span class="time2">' + when + '</span><div class="text2">' + text + '</div></div></div>';
+        }).join('');
+      }, function(){ /* 구독 오류는 조용히 무시 */ });
+    });
+
+    document.querySelectorAll('[data-submit]').forEach(function(btn){
+      btn.addEventListener('click', async function(){
+        var id = btn.getAttribute('data-submit');
+        var ta = document.querySelector('[data-input="' + id + '"]');
+        if (!ta) return;
+        var text = ta.value.trim();
+        if (!text) return;
+        btn.disabled = true;
+        try {
+          await db.collection('comments').add({ postId: id, authorId: myId, text: text, ts: Date.now() });
+          ta.value = '';
+        } catch (e) { /* 쓰기 권한이 없는 뷰어 등 — 조용히 무시 */ }
+        btn.disabled = false;
+      });
+    });
+  })();
+
   // 뉴스는 매일 자동 갱신되는 정적 스냅샷입니다 (게시 시점 기준).
+  // 공간을 줄이기 위해 화면에는 가장 최근 1건만 보여줍니다. 아래 배열에 더 추가해도
+  // 맨 위 1건만 표시되니, 필요하면 newsList 렌더링의 slice(0,1)을 늘리세요.
   var NEWS_UPDATED = '2026-09-30 06:52 KST 갱신';
   var NEWS = [
     ['파이낸셜뉴스', '전국 건축물 743만동·43억㎡...허가·착공·준공은 모두 감소', '09.30', 'https://fnnews.com/news/202609300731333604'],
-    ['파이낸셜뉴스', "건설주, 하루 만에 급락 전환…AI 기대감에도 증시 하락에 '휘청'", '09.29', 'https://fnnews.com/news/202609291323340215']
+    ['파이낸셜뉴스', "건설주, 하루 만에 급락 전환…AI 기대감에도 증시 하락에 '휘청'", '09.29', 'https://fnnews.com/news/202609291323340215'],
+    ['기계설비신문', "[경제 브리핑] 7월 건설수주 30.6%↓", '', 'https://www.kmecnews.co.kr/news/articleView.html?idxno=51814'],
+    ['기계설비신문', '기계설비건설협회, 2026 상반기 건설업 시중노임단가 안내', '', 'https://www.kmecnews.co.kr/news/articleView.html?idxno=44925']
   ];
 
   var updatedEl = document.getElementById('newsUpdated');
@@ -228,7 +410,7 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
 
   var list = document.getElementById('newsList');
   if (list){
-    list.innerHTML = NEWS.map(function(n){
+    list.innerHTML = NEWS.slice(0, 1).map(function(n){
       var src = n[0], title = n[1], date = n[2], url = n[3];
       return '<a class="news-item" href="' + url + '" target="_blank" rel="noopener">' +
         '<span class="src">' + src + '</span>' +
@@ -237,25 +419,15 @@ footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--i
     }).join('');
   }
 
-  // 기계설비신문(kmecnews.co.kr) — 설비팀 업계 전문지, 2건
-  var KMEC_UPDATED = '2026-09-30 06:52 KST 갱신';
-  var KMEC_NEWS = [
-    ['기계설비신문', "[경제 브리핑] 7월 건설수주 30.6%↓", '', 'https://www.kmecnews.co.kr/news/articleView.html?idxno=51814'],
-    ['기계설비신문', '기계설비건설협회, 2026 상반기 건설업 시중노임단가 안내', '', 'https://www.kmecnews.co.kr/news/articleView.html?idxno=44925']
-  ];
-
-  var kmecUpdatedEl = document.getElementById('kmecUpdated');
-  if (kmecUpdatedEl) kmecUpdatedEl.textContent = KMEC_UPDATED;
-
-  var kmecList = document.getElementById('kmecList');
-  if (kmecList){
-    kmecList.innerHTML = KMEC_NEWS.map(function(n){
-      var src = n[0], title = n[1], date = n[2], url = n[3];
-      return '<a class="news-item" href="' + url + '" target="_blank" rel="noopener">' +
-        '<span class="src">' + src + '</span>' +
-        '<span class="title">' + title + '</span>' +
-        '<span class="date mono">' + date + '</span></a>';
-    }).join('');
+  // 설비 관련 법규 — 기본은 1개만 보이고, 버튼을 누르면 나머지 2개가 펼쳐집니다.
+  var lawMoreBtn = document.getElementById('lawMoreBtn');
+  var lawMoreList = document.getElementById('lawMoreList');
+  if (lawMoreBtn && lawMoreList){
+    lawMoreBtn.addEventListener('click', function(){
+      var open = lawMoreList.style.display !== 'none';
+      lawMoreList.style.display = open ? 'none' : 'flex';
+      lawMoreBtn.textContent = open ? '소방시설법·건축법 보기 +2' : '접기 ↑';
+    });
   }
 })();
 </script>
