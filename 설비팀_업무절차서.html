@@ -1,0 +1,994 @@
+<title>설비팀 업무절차서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#eef1ef;
+    --surface:#ffffff;
+    --surface-2:#e2e8e5;
+    --ink:#1a2330;
+    --ink-dim:#55636b;
+    --ink-faint:#7c8a91;
+    --line:#c9d2ce;
+    --line-soft:#dbe1de;
+    --accent:#1f5f7a;
+    --accent-ink:#ffffff;
+    --accent-soft:#dbe9ee;
+    --quality:#2f7d55;
+    --quality-soft:#dcefe1;
+    --general:#a8641a;
+    --general-soft:#f3e6d3;
+    --subcontract:#6a4e9c;
+    --subcontract-soft:#e9e3f5;
+    --shadow: 0 1px 2px rgba(20,30,35,.06), 0 6px 20px -8px rgba(20,30,35,.12);
+    --radius: 10px;
+    font-synthesis: none;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1821;
+      --surface:#16212c;
+      --surface-2:#1c2833;
+      --ink:#dfe7ea;
+      --ink-dim:#98a7ae;
+      --ink-faint:#6d7c84;
+      --line:#2b3b45;
+      --line-soft:#22303a;
+      --accent:#6fb4d1;
+      --accent-ink:#0b1c24;
+      --accent-soft:#1c3641;
+      --quality:#68c493;
+      --quality-soft:#173327;
+      --general:#e0a458;
+      --general-soft:#39280f;
+      --subcontract:#b79ce6;
+      --subcontract-soft:#291f3d;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1821;
+    --surface:#16212c;
+    --surface-2:#1c2833;
+    --ink:#dfe7ea;
+    --ink-dim:#98a7ae;
+    --ink-faint:#6d7c84;
+    --line:#2b3b45;
+    --line-soft:#22303a;
+    --accent:#6fb4d1;
+    --accent-ink:#0b1c24;
+    --accent-soft:#1c3641;
+    --quality:#68c493;
+    --quality-soft:#173327;
+    --general:#e0a458;
+    --general-soft:#39280f;
+    --subcontract:#b79ce6;
+    --subcontract-soft:#291f3d;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans KR','Noto Sans KR',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ text-wrap:balance; margin:0; font-weight:700; letter-spacing:-.01em; }
+  .mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  a{ color:inherit; }
+
+  /* ---------- header ---------- */
+  header.top{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px) saturate(1.1);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{
+    max-width:1180px; margin:0 auto; padding:14px 22px;
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  }
+  .brand{ display:flex; align-items:baseline; gap:10px; margin-right:auto; }
+  .brand .mark{
+    width:30px; height:30px; border-radius:7px;
+    background:var(--accent); color:var(--accent-ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px;
+    flex:none;
+  }
+  .brand h1{ font-size:18px; }
+  .brand .sub{ font-size:12.5px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; }
+  .crosslink{ font-size:12.5px; color:var(--accent); font-family:'IBM Plex Mono',monospace; text-decoration:none; border:1px solid var(--line); padding:6px 12px; border-radius:999px; white-space:nowrap; }
+  .crosslink:hover{ border-color:var(--accent); }
+
+  .search-wrap{ position:relative; flex:1 1 220px; max-width:320px; }
+  .search-wrap input{
+    width:100%; padding:9px 12px 9px 34px; border-radius:999px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    font-family:inherit; font-size:13.5px; outline:none;
+  }
+  .search-wrap input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }
+  .search-wrap svg{ position:absolute; left:11px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--ink-faint); }
+
+  nav.pills{ display:flex; gap:6px; flex-wrap:wrap; }
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; padding:6px 12px;
+    border-radius:999px; border:1px solid var(--line); background:var(--surface);
+    color:var(--ink-dim); cursor:pointer; white-space:nowrap; transition:.15s;
+  }
+  .pill:hover{ color:var(--ink); }
+  .pill.active{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+
+  /* ---------- shell ---------- */
+  .shell{ max-width:1180px; margin:0 auto; padding:30px 22px 90px; }
+
+  .hero{ margin-bottom:34px; }
+  .hero p.lede{ max-width:66ch; color:var(--ink-dim); font-size:15px; margin-top:10px; }
+  .hero h2{ font-size:24px; }
+  .note{
+    margin-top:14px; font-size:12.5px; color:var(--ink-faint);
+    border-left:2px solid var(--line); padding:6px 0 6px 12px;
+  }
+
+  /* ---------- overview diagram ---------- */
+  .diagram-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:18px 18px 8px; margin-top:20px;
+  }
+  .diagram-card h3{ font-size:13px; color:var(--ink-dim); font-weight:600; margin-bottom:6px; font-family:'IBM Plex Mono',monospace; letter-spacing:.02em;}
+  .diagram-card svg{ width:100%; height:auto; display:block; }
+  .diagram-card figcaption{ font-size:12px; color:var(--ink-faint); padding:8px 2px 12px; }
+  .dnode{ cursor:pointer; }
+  .dnode rect{ transition:filter .15s; }
+  .dnode:hover rect{ filter:brightness(1.08); }
+  .dnode:hover .dlabel{ text-decoration:underline; }
+
+  /* ---------- category section ---------- */
+  section.category{ margin-top:52px; scroll-margin-top:90px; }
+  .cat-head{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .cat-swatch{ width:11px; height:11px; border-radius:3px; flex:none; }
+  .cat-head h2{ font-size:21px; }
+  .cat-desc{ color:var(--ink-dim); font-size:13.5px; max-width:70ch; margin:6px 0 22px; }
+
+  .group{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); margin-bottom:20px; overflow:hidden; scroll-margin-top:90px;
+  }
+  .group-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:16px 20px; border-bottom:1px solid var(--line-soft);
+  }
+  .group-head h3{ font-size:16px; }
+  .group-meta{ display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; }
+  .group-meta b{ color:var(--ink); font-weight:600; }
+
+  .flow-row{
+    display:flex; align-items:stretch; gap:0; padding:18px 20px 6px; overflow-x:auto;
+  }
+  .step-chip{
+    flex:1 1 150px; min-width:150px; text-align:left; cursor:pointer;
+    background:var(--surface-2); border:1px solid var(--line); border-radius:8px;
+    padding:10px 12px; font-family:inherit; color:var(--ink); font-size:12.5px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .step-chip .num{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);
+  }
+  .step-chip .ti{ font-weight:600; font-size:13px; line-height:1.35; }
+  .step-chip .dates{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-dim); }
+  .step-chip.active{ border-color:var(--cat-color, var(--accent)); background:var(--cat-soft, var(--accent-soft)); }
+  .arrow-sep{
+    flex:0 0 26px; display:flex; align-items:center; justify-content:center; color:var(--ink-faint);
+  }
+
+  .detail-panel{ padding:4px 20px 20px; }
+  .detail-inner{
+    border-top:1px dashed var(--line); padding-top:16px; margin-top:8px;
+  }
+  .detail-title-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:10px;}
+  .detail-title-row h4{ font-size:15.5px; }
+  .chip-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:3px 9px; border-radius:999px;
+    background:var(--surface-2); color:var(--ink-dim); border:1px solid var(--line);
+  }
+  .chip.date{ color:var(--ink); }
+
+  ul.detail-list{ list-style:none; margin:10px 0 0; padding:0; font-size:13px; }
+  ul.detail-list li{ padding:3px 0 3px calc(var(--lvl,0) * 16px); color:var(--ink); }
+  ul.detail-list li.lvl-0{ font-weight:600; margin-top:8px; }
+  ul.detail-list li.lvl-0:first-child{ margin-top:0; }
+  ul.detail-list li.lvl-1{ color:var(--ink); }
+  ul.detail-list li.lvl-2,ul.detail-list li.lvl-3,ul.detail-list li.lvl-4{ color:var(--ink-dim); font-size:12.5px; }
+  ul.detail-list li::marker{ content:""; }
+
+  .forms-box{
+    margin-top:16px; padding:12px 14px; background:var(--surface-2); border-radius:8px;
+    border:1px solid var(--line-soft);
+  }
+  .forms-box .lbl{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); margin-bottom:6px; letter-spacing:.02em;}
+  .forms-box .chip-row .chip{ background:var(--surface); }
+
+  /* subcontract table */
+  .assign-table-wrap{ padding:18px 20px 22px; overflow-x:auto; }
+  table.assign{ width:100%; border-collapse:collapse; font-size:13px; min-width:640px; }
+  table.assign th, table.assign td{ border:1px solid var(--line); padding:9px 12px; text-align:center; }
+  table.assign th{ background:var(--surface-2); font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-dim); font-weight:600; }
+  table.assign td:first-child{ text-align:left; font-weight:600; background:var(--surface-2); }
+  table.assign td.note{ font-size:11.5px; color:var(--ink-dim); text-align:left; }
+
+  /* forms index */
+  .forms-index{
+    margin-top:52px; background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 24px 26px;
+  }
+  .forms-index h2{ font-size:18px; margin-bottom:4px; }
+  .forms-index p{ color:var(--ink-dim); font-size:13px; margin-bottom:16px; }
+  .forms-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; }
+  .form-card{
+    border:1px solid var(--line); border-radius:8px; padding:9px 12px; font-size:12.5px;
+    background:var(--surface-2);
+  }
+  .form-card .code{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent); display:block; margin-bottom:2px;}
+
+  footer.pagefoot{
+    max-width:1180px; margin:60px auto 0; padding:20px 22px 40px; color:var(--ink-faint);
+    font-size:12px; border-top:1px solid var(--line);
+  }
+
+  [hidden]{ display:none !important; }
+
+  ::-webkit-scrollbar{ height:8px; width:8px; }
+  ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:99px; }
+</style>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="mark">7B</div>
+      <div>
+        <h1>설비팀 업무절차서</h1>
+        <div class="sub">대방산업개발 · 기술본부 7-B-2</div>
+      </div>
+    </div>
+    <a class="crosslink" href="표준시방서.html" target="_blank" rel="noopener">표준시방서 보기 →</a>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="절차, 부서, 서식으로 검색…" autocomplete="off">
+    </div>
+    <nav class="pills" id="pills"></nav>
+  </div>
+</header>
+
+<main class="shell">
+  <div class="hero">
+    <h2>설비팀 업무절차서</h2>
+    <p class="lede">현설자료 접수부터 입찰·실행예산·하도급 발주, 시공 중 품질점검, 도면검토, 인허가·대관업무, 준공 정산까지 — 그룹웨어 여러 페이지에 흩어져 있던 절차를 한 화면에서 순서대로 확인하고, 각 단계를 눌러 세부 업무와 산출물 서식을 바로 열어볼 수 있습니다.</p>
+    <p class="note">이 페이지는 업무절차서 원문(7-B-2, p.31~58)을 재구성한 참고용 요약본입니다. 결재선·정확한 문구 등 공식 기준은 반드시 그룹웨어 원문을 확인하세요.</p>
+
+    <figure class="diagram-card">
+      <h3>전체 업무 흐름도 — 수주부터 준공까지</h3>
+      <div id="overview-diagram"></div>
+      <figcaption>공정관리·품질관리·일반관리 3개 트랙이 프로젝트 수명주기를 따라 동시에 진행되고, 도급현장에서는 건축·토목·전기·설비 4개 팀이 업무를 분장합니다. 박스를 클릭하면 해당 절차로 이동합니다.</figcaption>
+    </figure>
+  </div>
+
+  <div id="categories"></div>
+
+  <div class="forms-index" id="forms-index">
+    <h2>산출물 및 서식 색인</h2>
+    <p>절차마다 등장한 [설비#]/[설계#] 서식 번호를 모아봤습니다. 실제 양식 파일은 그룹웨어 서식함에서 번호로 찾으세요.</p>
+    <div class="forms-grid" id="forms-grid"></div>
+  </div>
+</main>
+
+<footer class="pagefoot">
+  설비팀 업무절차서 요약 뷰 · 원문 7-B-2 / 7-C-1 (대방산업개발 기술본부, p.31–58) 기준으로 재구성 · 최종 갱신 2026-09-04
+</footer>
+
+<script>
+/* ============================= DATA ============================= */
+const CATEGORIES = [
+{
+  id:'process', name:'공정관리', color:'accent',
+  desc:'업체 선정, 입찰·실행예산 작성, 하도급 발주계획부터 프로젝트 일정관리, M/H 축조, 시공 중 공정관리, 준공관리까지 프로젝트 진행 전반의 일정을 관리합니다.',
+  groups:[
+    { id:'vendor', name:'업체선정 및 관리', flow:'128', dept:'현장TFT, 공무부, 훈육부, 건축팀, 전기팀, 내부디자인팀',
+      forms:['설비1 시방서','설비2 내역서','설비3 예정공정표','설비5 지입자재사양서','설비6 계약서','설비11 도면','설비19 현설요청및업체투입시기','설비23 수량집계대비표','설비26 지입지급자재관리절차'],
+      steps:[
+        { title:'현설자료 보고', start:'업체투입시기 일정표', end:'업체투입시기 일정표(선정통보 후 30일 이내)', detail:[
+          '가. 본공사 현설자료 보고',
+          '1) 본공사 현설자료 접수',
+          '가) 각 현장 공종별 현설자료 현장에서 본사로 송부',
+          '나) 공사 종류',
+          '1) 심정개발공사 현설자료','2) 설비공사 현설자료','3) 도시가스 공사 현설자료','4) 자동제어 공사 현설자료',
+          '5) 천정형 에어컨(위생대체) 공사 현설자료','6) 부대복리동 냉난방기 공사 현설자료','7) 실내환기 공사 현설자료',
+          '8) 물탱크류 납품 현설자료','9) 스프레이 이송설비 현설자료','10) 지열 시스템 현설자료','11) 유동기·냉각탑 납품설치 공사 현설자료',
+          '12) FCU설치 공사 품질점검','13) 공조기 납품 설치공사 현설자료','14) 위생도기류 납품 현설자료','15) 수전류 납품 현설자료',
+          '16) 악세사리류 납품 현설자료','17) 펌프류 납품 현설자료','18) 밸브 설치공사 현설자료','19) 열교환기류 납품 현설자료',
+          '2) 현설자료 검토 및 수정(협의서·약정서 및 법적 관련서류 유무, 적용 검토)',
+          '3) 현설자료 보고품의',
+          '4) 업체선정 및 업무협조문 송부(공무부)',
+          '5) 현설자료보고·업체투입시기 등의 일정변경',
+          '6) 업체선정 후 설계대비 변경사항 발생 시 유관부서(전기팀) 통보',
+          '나. 상업시설 인테리어공사 현설자료 검토',
+          '1) 상업시설 현설자료 접수(검토요청 공문 접수 후 7일 이내, 유관부서: 건축부)',
+          '2) 현설자료 검토 및 회신(도면·내역서·협약서 및 법적 관련서류 유무 등)',
+        ]},
+        { title:'입찰(가실행예산 작성)', tag:'도급현장', start:'현장설명회 시', end:'요청일', detail:[
+          '가. 입찰일정 확인',
+          '1) 업무팀으로부터 입찰 관련 내용 사내공문으로 접수',
+          '나. (가)실행 참고자료 접수',
+          '1) 설계서·공내역서·현장설명회 자료',
+          '다. (가)실행예산 작성',
+          '라. (가)실행 예산 작성 완료 후 업무팀 통보',
+        ]},
+        { title:'입찰내역 작성', tag:'도급현장', start:'현장설명회 후', end:'입찰마감 전', detail:[
+          '가. 현장설명 자료 접수',
+          '1) 설계서·공내역서·현장설명회 자료',
+          '나. 입찰내역서 작성',
+          '1) 입찰내역서 작성','2) 관급입찰 검토리스트 작성','3) 유관부서 내역검토 요청 사내공문 송부 및 회신',
+          '다. 타업체 입찰 금액 예측',
+          '라. 투찰 내역서 작성 후 업무팀 이관',
+        ]},
+        { title:'(본)실행예산 작성', tag:'도급현장', start:'발주처 계약체결 시', end:'도급계약 착공일 +2개월 이내', detail:[
+          '가. 1단계 프로젝트 일정 확인',
+          '나. 설계도면 수령 후 (본)실행내역서 작성(착공일 +1개월 이내)',
+          '다. 유관부서 관련자료 요청',
+          '라. (본)실행예산 내역서 유관부서 1차 승부 후 검토요청(승부 후 +14일 이내)',
+          '마. 도급현장 원가개선 검토회의(실무진)',
+          '1) 부서별 검토사안',
+          '- 주관부서 : 도급순이 확보가능 내역, 발주내역 분개 및 세부화 방안',
+          '- 공무부 : 발주계획 대비 적기 재결점검, 착공 전 현장시찰·추가 업체 대상 단가 적정성 조사 등',
+          '- 기획실/예산관리부 : 유사현장 단가적정성 검토, 일반관리비 절감 방안',
+          '바. 취합 및 검토 후 (본)실행예산 확정',
+          '사. (본)실행예산 확정 보고품의',
+        ]},
+        { title:'하도급 발주계획 보고', tag:'도급현장', start:'발주처 계약체결 시', end:'실착공 2개월 전', detail:[
+          '가. 현장 하도급발주계획 보고',
+          '1) 하도급 발주계획 접수(발주처 계약체결 후 30일 이내)',
+          '가) 현장으로부터 하도급발주계획 사내공문 접수',
+          '나) 하도급 발주계획 검토',
+          '① 세부 공종별 현실사정 및 내역','② 기타 발주상 특이사항 여부',
+          '2) 하도급 발주계획 보고품의(발주계획 특이사항 있을 시)',
+          '가) 하도급 발주계획 수정 검토, 재보고','나) 하도급 발주계획 최종 확정',
+          '3) 최종 확정 하도급발주계획 현장 전송',
+          '가) 현장으로부터 수정된 하도급발주계획 기준 현설자료 요청',
+        ]},
+      ]
+    },
+    { id:'integrated', name:'통합공정관리', flow:'', dept:'기획조정실, 설계팀, 영업계획팀, 현장',
+      forms:['설비9 회의자료','설비19 현설요청및업체투입시기','설비13 현장점검결과서','설비3 예정공정표','설비10 주간공정표'],
+      steps:[
+        { title:'1단계 프로젝트 일정관리', start:'택지낙찰 후', end:'회의 발생 시', detail:[
+          '가. 기본계획 사전검토/실무진 회의 후 검토 회신(3주 이내)',
+          '1) 설계팀에서 설계업체별 제안서 등 통보, 시공성 검토 후 시공방안 및 시공성 검토 회신',
+          '나. 프로젝트 일정 회의 참석 요청 공문 접수',
+          '다. 일정 검토(요청 시 → 회신일)',
+          '1) 프로젝트 일정표 검토 후 해당공정 착수일·완료일 변경',
+          '가) 자재 디자인 선정(도기, 수전, 악세사리 등)',
+          '(1) 착수 : 모델하우스 오픈 3개월 전',
+          '(2) 완료 : 모델하우스 오픈 2개월 전',
+          '나) 설비공사 현설자료 보고',
+          '(1) 착수 : (설비)실시설계도 납품 완료 시',
+          '(2) 완료 : (설비)실시설계도 납품 후 1개월 이내',
+          '다) 심정설치(필요시) 또는 가설수도 현설자료 작성',
+          '(1) 착수 : 착공일의 64일 전',
+          '(2) 완료 : 착공일의 50일 전',
+          '2) 일정지연 발생 시 일정변경 품의 후 사내공문 송부',
+          '라. 회의참석',
+          '1) 기획조정실 주관 하에 현장별 프로젝트 일정 수정',
+          '2) 공정 지연현장 발생 시 대책회의 실시(필요시)',
+          '마. 일정관리',
+          '1) 1단계 프로젝트 일정 관리',
+          '2) 일정지연 발생 시 일정변경 품의 후 사내공문 통보',
+          '바. 시스템에어컨 예가 산정(요청 시 → 3주 이내, 유관: 영업계획팀)',
+          '1) 시스템에어컨 내역 및 예가 승인',
+          '사. 단위세대 냉방설비 검토안 보고(M/H 착공일 30일 전 → M/H 착공일, 유관: 기획조정실)',
+        ]},
+        { title:'M/H 축조관리', flow:'48', start:'필요 시 / M/H 오픈 100일 전', end:'M/H 오픈 후 1일~30일 이내', detail:[
+          '가. M/H 공사 중 점검(필요 시)',
+          '1) 심정개발 설치공사 확인',
+          '2) 공용 화장실 위생기구 상태 점검',
+          '3) 환기시설 및 냉난방시설 상태 점검',
+          '4) 기계실 장비 및 저수조 점검',
+          '나. M/H 공사완료 후 점검',
+          '1) 단위세대 POP 부착(M/H 오픈 100일 전 → 오픈 1일 전)',
+          '2) 단위세대 천정형 에어컨·위생기구·환기설비오염 확인',
+          '3) 스프링클러 및 옥내소화전 상태 점검',
+          '4) 설비기구(위생도기·수전·온도조절기 등) 설치위치 보고(M/H 마감품평회 60일 전 → 마감품평회)',
+          '5) 공용구역 및 단위세대 냉난방기 설비현황 통보(총무팀)(M/H 오픈일 → 오픈 후 30일 이내)',
+        ]},
+        { title:'공사진행 중 공정관리', start:'매주 금요일 / 단계별 품질점검', end:'매주 금요일 / 단계별 품질점검', detail:[
+          '가. 현장 공정관리',
+          '1) 전체공정표 확정(착공보고 시)',
+          '2) 지하주차장 기초타설 완료 후 시점',
+          '3) 1층 갱폼세팅 완료 후 시점',
+          '4) 특이사항 발생 시',
+          '나. 각 현장별 주간공정표 접수상태 확인(매주 금요일)',
+          '1) 각 현장별 주간공정표 접수상태 확인',
+          '2) 금주 예정사항 이행여부 확인',
+          '3) 차주 예정사항 확인',
+          '다. 품질점검 시 공정 점검(단계별 품질점검)',
+          '1) 품질점검 시 주간공정표와 일치 여부 확인',
+          '2) 품질점검 실시 후 결과보고 시 공정현황 포함 보고',
+          '3) 승인완료 후 관련부서 결과 통보',
+          '라. 특이사항 보고품의(유관: 현장건축팀)',
+          '1) 특이사항 발생 시 보고품의 실시 후 후속조치 실시',
+        ]},
+        { title:'준공관리', start:'업무요청 시', end:'준공 (분기별 보고 +90일 이내)', flow:'116', detail:[
+          '가. 준공업무 사용승인 업무 지원',
+          '1) 현장 사용승인 업무 지원 접수',
+          '가) 현장에서 보낸 사용승인에 관하여 지역난방·소방·도시가스 등 관련사항 검토',
+          '나) 부담금, 검사에 필요한 서류 검토',
+          '2) 사용승인에 관한 필증 취득 업무 지원',
+          '가) 소방시설 완공검사 필증','나) 지역난방 점검 필증','다) 도시가스 완성 검사 필증',
+          '라) 저수조 청소소독 필증','마) 급수공사 완료통보서','바) 오수정화조 준공 신고서',
+          '나. 최종정산 결과 보고(준공 후 90일 이내, 유관: 기획조정실)',
+          '1) 주관부서(전기/설비/토목사업팀) 보고(아래 1개 이상 해당 시) : 당사 비주관 도급공사, 1년 미만 단기 도급공사, 단일공종 도급공사, 장기계속 관리공사',
+        ]},
+      ]
+    },
+  ]
+},
+{
+  id:'quality', name:'품질관리', color:'quality',
+  desc:'착공부터 준공까지 단계별 현장 품질·안전점검, 월별/기성 정기점검, 상업시설 점검과 도면검토·설계변경 절차입니다.',
+  groups:[
+    { id:'inspect', name:'품질점검', dept:'현장',
+      forms:['설비8 시정조치요구서','설비9 회의자료','설비16 하자리스트','설비20 점검리스트','설비27 품질관리지침-설비팀(지급자재)','설비28 품질관리지침-설비팀(지입자재)','설비7 사진대지','설비17 현장담당평가서','설비18 체크리스트','설비32 기성검사 보고서'],
+      steps:[
+        { title:'단계별 품질점검 실시 및 결과보고', flow:'1 → 65', start:'지하층 슬리브공사 2개월 후', end:'준공 D-90 / D-15 점검', detail:[
+          '가. 각 현장 품질점검 일정 확정 — 예정공정표 확인 후 단계별 시행',
+          '나. 현장으로부터 체크리스트 접수',
+          '1) 체크리스트 종류',
+          '가) 공종별 체크리스트','나) 자재검수 리스트(거래명세서 포함)',
+          '다. 지급자재 매입일보 검토',
+          '라. 단계별 현장 품질점검 실시 및 안전점검 실시',
+          '1) 슬리브 공사(건축·골조공사 중)',
+          '가) 지하층 슬리브 공사(설치 후) — 인서트·인서트플레이트 위치, 외벽/옹벽 관통슬리브 위치·규격 확인',
+          '나) 기준층 슬리브 공사(10개 층마다) — 입상/벽체 관통슬리브 위치·규격, 욕실·주방·발코니 슬리브 위치·규격·고정상태, 소화전·계량기함 위치·규격',
+          '2) 배관 공사(건축·골조공사~샘플점검, 공사완료 후)',
+          '가) 지하층 배관공사 — 가대 설치상태, 배관경·밸브류·부속류 규격, 고정·지지금속물, 용접·접합상태, 오배수 배관 횡주관 구배상태',
+          '나) 입상 배관공사(10개 층마다) — 배관배열·지관 분기상태, 세대 자단밸브 위치, 입상배관 고정구·지지상태, 배관 수직상태, 슬리브 주위 마감상태, 알람밸브/프리액션밸브 위치·설치상태',
+          '다) 단위세대 오배수 배관공사(10개 층마다) — 욕실전정 배관배열·부속 연결상태, 배관 구배·지지상태, 소제구·점검구 위치·규격, 방화댐퍼 설치상태, 건식AD 규격·설치상태',
+          '라) 단위세대 급수·급탕 배관공사(10개 층마다) — 외벽골조 매립여부, 접촉부위 단열시공 여부, 배관·단열재 고정상태, 매설상태(관수배관 여부), 수압점검',
+          '마) 단위세대 난방 배관설치상태 — 순환배관·분배기 주위배관/기기, 코일 간격·고정상태, 매설상태(달팽이형 배관), 수압점검',
+          '바) 단위세대 S/P 배관공사(10개 층마다) — 스프링클러 배관 상태, 헤드 위치·개소 점검',
+          '3) 마감기구 설치공사(건축·마감공사~샘플점검, 공사완료 후)',
+          '가) 위생기구 설치공사 — 세면기/양변기/바닥배수 설치 위치·수평·고정상태(막힘), 수전·악세사리 설치상태, 욕실팬 설치 위치·상태',
+          '나) 함류(마감 커버) 설치공사 — 내장 수직·수평 과다돌출 상태, 마감 내부 청소·방청도장, 마감 커버 고정·보강상태, 건식 PD 내외부 조립·도장 상태',
+          '4) 장비 설치공사',
+          '가) 장비 배관공사 — 가대 시공상태, 밸브류·계기류 위치·시공상태, 장비-주위배관 연결상태, 드레인 배관 위치·시공상태',
+          '나) 장비 설치공사 — 장비 시공상태, 기동/제어/장비간 이격거리, 계기류 용량, 방진 규격·설치상태',
+          '마. 준공 전 품질점검 실시',
+          '1) 준공점검',
+          '가) 사용승인 예정일 D-150 3단계 프로젝트 회의 참석 및 검토(베이시아웃 시행계획, 본사 합동점검 일정)',
+          '나) D-90일 자체점검 실시 → 건축팀에 송부',
+          '- 준공 90·15일 전 자체품질점검 계획에 의거 합동점검 실시, 동별/공종별 하자사항 취합하여 현장에 통보 후 즉시 시정조치 지시',
+          '다) 입주자 사전점검 후 D-15일 자체점검 실시 → 건축팀에 송부',
+          '- D-90일 자체점검·입주자 사전점검 체크리스트 및 공용부위 합동점검 결과 취합, 즉시 시정조치 지시 및 5일 이내 결과 회신',
+          '바. 품질점검 결과 작성 및 보고(점검 완료 후 10일 이내)',
+          '1) 품질점검 결과 작성',
+          '2) 품질점검 결과 보고',
+          '가) 사진대지·현장담당 평가서·체크리스트 첨부하여 보고품의',
+          '나) 시정사항 있을 시 시정조치 요구서 작성하여 첨부',
+          '사. 전 현장 품질점검 결과 분기별 보고(1·4·7·10월 15일 이내)',
+          '1) 해당 분기 품질점검 완료 현장 현황 취합하여 본사 보고',
+          '자. 현장 시정조치 사항 사내공문 발송(보고 완료 후 익일)',
+          '1) 결재 완료 후 익일 시정조치사항 현장으로 사내공문 발송',
+          '차. 시정조치완료 공문 접수(접수일 15일 이내)',
+          '1) 시정조치 완료 유무 확인',
+          '카. 시정조치완료 사항 보고품의(접수일 10일 이내)',
+          '1) 시정조치 완료보고서 및 사진대지 첨부',
+        ]},
+        { title:'월별 정기점검(기성, M/H)', flow:'144', start:'단계별 PJ 일정표', end:'점검 후 10일 이내', detail:[
+          '가. 월별·현장별 기성 품질점검',
+          '1) 현장별 기성청구내역서 및 산출근거(다이어그램 등) 검토',
+          '가) 해당현장 기성청구내역서 및 산출근거 사내공문 수신',
+          '나) 기성청구 분의 타당성·기성율 검토',
+          '다) 현장 품질점검 시 기성내역 이상유무 확인(1회/2개월 · 현장별)',
+          '2) 기성점검 결과 공무부에 사내공문 통보',
+          '3) 특이사항 및 문제점 발생 시 대표이사 보고',
+          '나. 월별 M/H 정기점검',
+          '1) OPEN 완료된 M/H는 월별 품질점검 실시(건축팀 월 1회, 설비·전기·토목팀 1개월 1회)',
+          '2) M/H 점검 시 완료보고서 확인 및 시공완료·하자 보완완료 점검하여 합격 시 공용부 채증보(품질점검 리스트에 준하여 점검)',
+          '3) 매월 10일 전체 모델하우스 품질점검 누적 진행현황 확인',
+        ]},
+        { title:'상업시설 현장점검', flow:'194', start:'매월 25~30일', end:'매월 25~30일', detail:[
+          '가. 현장점검(건축팀 요청 접수 시)',
+          '1) 품질 및 기성 점검',
+          '가) 해당현장 기성청구 내역 검토','나) 기성청구 시공분에 대한 품질점검 실시','다) 기성청구품의 타당성·기성율 검토','라) 공무부 관련자료 송부',
+          '2) 현장점검 또는 공사난이도에 따라 유관부서 또는 인근 현장 점검 지원 요청',
+          '나. 도면변경 시 변경계약의 시행품의',
+        ]},
+        { title:'준공현장(상업시설) 상환경 합동점검', start:'변경발생 후 14일 전', end:'4·8·12월 중 30일 이내', detail:[
+          '가. 품질향상 및 상환경 개선사항을 위한 보수공사 유형점검(유관: 영업부, 기술본부, 상품개발부, 토목부, 공무부)',
+          '나. 점검 결과 처리',
+          '1) 특이사항 없을 시 : 유관부서에 사내공문 회신',
+          '2) 보수공사 필요 시 : 디자인 시안 및 예상공사비 산출(필요 시 견적진행) 후 회신, 현설자료 검토 및 회신',
+          '다. 품의 결과에 따른 후속업무 진행',
+        ]},
+      ]
+    },
+    { id:'drawing', name:'도면검토', dept:'현장, 설계부, 내부디자인팀',
+      forms:['설비11 도면','설비15 설계검토리스트','설비30 공기연장에 따른 간접비 조정 합의서'],
+      steps:[
+        { title:'도면검토', flow:'135·136·138·139·140', start:'요청 시', end:'회신일', detail:[
+          '가. 도면 검토 요청 공문 접수',
+          '나. 도면 검토',
+          '1) 기본계획 및 사업승인 도면검토(단위세대 평면 포함) — 현장적용 적정성, 본시공 시 설계변경 최소화 여부',
+          '2) 착공도면 검토 — 설계변경 최소화, 적절한 상세시공도 작성여부',
+          '3) 실시도면 검토 — 당사 공종별 세부기준 부합여부, 설계변경 최소화, 상세시공도 작성여부, 야마인트 검토(누락·신규 적용아이템 적정성), 이상·누락부위 도면검토, 신공법/신자재 검토(원가절감·편의성·적용여부), 실시공 타당성 검토',
+          '4) 각 현장 설비 도면 검토 — 업무처리 흐름에 따라 현장·설계팀과 협의, 실시공 타당성 확인, 이상·누락부위 확인, 품질향상을 위한 설계도면 개선 및 현장 안내',
+          '5) 준공도면 검토 — 체크리스트 해당 전 공종 도면 검토, 경미한 설계변경분 취합, 도면-실시공 일치여부 확인',
+          '6) 설계팀 주관 회의 참여(예정된 현장 인원 참여)',
+          '다. 도면 검토 수정 완료 후 사내공문 회신',
+          '라. 실행 산출',
+          '1) 기본계획도면(실무진회의완료) 확정 시, 평가표 작성 및 예정공사금액 검토 후 회신(3일 이내)',
+          '2) 사업승인(건축허가) 접수 도면 기준 가실행 산출(7일 이내)',
+          '3) (설비)실시설계도면 완료 후 본실행내역 산출(60일 이내)',
+        ]},
+        { title:'설계변경관리', flow:'113·107', start:'발생 시', end:'처리 요청일', detail:[
+          '[실계본부 변경발생 시]',
+          '가. 실계본부 변경사항 내용 검토 후 사내공문 접수',
+          '나. 실계변경 기술적·공법적 적용가능여부 검토 및 현장타당성 검토',
+          '다. 타당성 검토 후 의견서 회신(접수 후 10일 이내)',
+          '[기술본부(현장) 발생 시]',
+          '가. 선시행 여부 확인 — 요청사항 접수 시 선시행 여부 확인 및 특별사안 시행요청',
+          '나. 자체공사 설계변경',
+          '1) 설계변경요청 사내공문 접수',
+          '2) 현장에서 설계변경 요청 및 자료(내역서·도면) 송부',
+          '3) 설계변경 타당성 검토',
+          '4) 공법변경 내용 검토요청 사내공문 발송(협력사·건축부·토목부·설계부 등)',
+          '- 예산관리부 : 예산변경에 따른 예산/내역 검토요청',
+          '- 건축·설계부 : 타당성·간섭·적정성 검토요청',
+          '- 상품개발부 : 타당성·간섭·적정성 검토요청',
+          '- 공무관리부 : 단가 적정성 검토요청',
+          '- 영업관리부 : 입주자 협의 및 회의 실시 등',
+          '다. 변경계약 전 유관부서 검토의견 수렴 또는 회의 실시(타당성·회신·수량 등)',
+          '라. 실계변경 확정 후 보고품의',
+          '마. 실계변경 확정 후 유관부서 통보',
+          '바. 도급공사 실계변경(협조문 접수 → 처리요청일)',
+          '1) 현장으로부터 도급공사 설계변경요청 유관부서 접수',
+          '가) 설계변경 요청 및 자료(내역서·도면) 송부','나) 공기연장 시 하도급업체 간 협의결과 첨부',
+          '2) 설계변경 타당성 검토(변경사유, 변경내역)',
+          '3) 유관부서 업무 요청',
+          '4) 임원결재문 발송',
+          '가) 발주자와 계약변경 요청 또는 협의 요청',
+          '나) 설계변경사항 현장에 통보',
+          '(1) ALT1. 내역변경 발생 시 재보고 및 변경 완료 후 유관부서 통보',
+          '(2) ALT2. 내역변경 없을 시 도급설계변경 최종확정 유관부서 통보',
+        ]},
+      ]
+    },
+  ]
+},
+{
+  id:'general', name:'일반관리', color:'general',
+  desc:'사업성 검토, 법규검토, 기술검토, 환급·구상권, 동절기 최저난방부터 인허가·현장지원·대관업무까지 프로젝트를 둘러싼 행정·지원 업무입니다.',
+  groups:[
+    { id:'tasks', name:'일반업무', dept:'사업부, 실행예산팀, 법무실, 설계부, 내부디자인팀, 영업계획팀',
+      forms:['설비23 공공택지(공동주택용지)검토체크리스트','설비12 타사사례조사보고서','설비14 박람회및기술세미나참관보고서','설비25 박람회체크리스트','설비31 설비팀 주요 자재사양','설비29 관리사무소 인수인계항목 인계 확인서(설비)','설비33 동절기 시설관리 교육 확인서'],
+      steps:[
+        { title:'사업성 검토(신규, 환급)', flow:'35', start:'요청 시', end:'회신일', detail:[
+          '가. 공공택지(공동주택용지) 입찰',
+          '1) 사업성 검토 요청 사내공문 접수',
+          '2) 해당 부지 공고문 및 자료를 통해 사업성 검토',
+          '가) 공급처/관할청 유선통화 후 난방방식·하수처리방식·쓰레기 이송설비 적용여부 확인',
+          '나) 확인사항 바탕으로 공공택지 검토 체크리스트 작성',
+          '3) 재건축/재개발 가실행예산 산출',
+          '4) 실행예산내역 산출',
+          '5) 사내공문 회신',
+          '나. 환급사업장 검토 업무',
+          '1) 신규 현장 및 환급사업장 검토 요청 사내공문 접수',
+          '2) 현장 검토 및 회신',
+          '가) 신규현장 검토 — 지구단위 지침에 따른 설비공사 자료 취합, 검토자료 송부',
+          '나) 환급사업장 검토 — 검토 리스트 작성 및 자료 검토, 현장실사 후 자료 취합·검토, 검토자료 송부',
+        ]},
+        { title:'법규 검토', flow:'43', start:'요청 시', end:'회신일', detail:[
+          '가. 중요 행정절차 및 법규 검토 사내공문 접수',
+          '1) 법규검토 — 설비·소방·건축 관련법 및 규정 검토',
+          '가) 수도법','나) 도시가스사업법','다) 집단에너지사업법','라) 소방시설공사업법','마) 건축물의 설비기준 등에 관한 규칙','바) 소방법·시행규칙·시행령',
+          '나. 관련법 및 규정 변경사항 법무팀 회신',
+        ]},
+        { title:'기술검토(사례조사, 자재사양)', flow:'166', start:'요청 시', end:'회신일', detail:[
+          '가. 타사사례 조사 및 검토·보고',
+          '1) 해당 타사 현장·모델하우스 등 확인',
+          '2) 타사 모델하우스 방문 및 점검',
+          '가) 타사 우수시공 및 마감사례 조사','나) 당사 적용 가능성 및 적정성 검토','다) 필요 시 당사 적용 — 지침변경 협의',
+          '3) 타사사례조사 보고품의',
+          '4) 타사사례조사 사내공문 통보',
+          '나. 주요 자재사양 업데이트 및 보고(매년 1월 → 30일 이내)',
+          '1) 기술개발동향 및 자재시장 추이 반영하여 연 1회 업데이트 보고',
+        ]},
+        { title:'환급 및 구상권 청구 업무', flow:'166', start:'ERP 환급예정일', end:'분기별 3·6·9·12월', detail:[
+          '가. 구상권 청구 목적 1차 시행품의 작성 시(시행품의 보고 시 구상권 청구 방법 기입)',
+          '1) 품의 후 완료 요청(공사내역 금액확정, 업체선정, 자금집행)',
+          '나. 공사관련 협력업체 과실이행보증서 감액 또는 잔여기성 공제 등',
+          '다. 구상권 청구 후 완료 확인',
+          '1) 업체 공제/환급/정산결과 요청 또는 보증금 환급 확인',
+          '라. 구상권 청구 불가 시 손해배상 청구 진행',
+          '1) 법무실에 구상권 관련 법률검토 의뢰',
+          '2) 법률검토의견서 수신 후 보고품의 및 손해배상 청구 소송 의뢰',
+          '마. 구상금 수령 또는 소송의뢰 현황 사내공문 통보(즉시)',
+          '1) 구상금 수령 및 소송의뢰 품의 완료 시 기획조정실로 사내공문 통보',
+          '2) ERP 구상금 처리현황 완료처리',
+          '바. 매월 : 환급 ERP 대장 관리(구상권 포함)',
+          '1) 환급금 발생 전표처리 후 제출',
+          '2) 환급추진 현황 결과 보고',
+          '3) 특이사항 또는 환급 불가 사유 보고',
+          '사. 환급관리 주요항목',
+          '1) 하자보수 미이행에 따른 환급 업무(하자보수 업체선정 후 7일 이내, 미환급 시 즉시 소송 이관 · 대외공문 발송 후 60일 이내)',
+        ]},
+        { title:'동절기 공가세대 최저난방', start:'매년 10월 20일', end:'매년 11월 10일 / 완료보고 12월 1일', detail:[
+          '가. 공가세대 조사 계획 보고(유관: 영업관리팀)',
+          '1) 공가세대 조사 공문 접수',
+          '가) 공가세대 리스트 수령 및 확인',
+          '나) 준공현장 동절기 관리방안 통보업무 협조요청 공문 접수(유관: 고객만족부)',
+          '2) 준공현장 공용부 점검 및 공가세대 관리요청 방송업무 협조',
+          '3) 최저난방 완료 보고(매년 12월 1일)',
+        ]},
+      ]
+    },
+    { id:'permit', name:'인허가', dept:'현장, 주관부서, 설계팀', flow:'205',
+      forms:['설계41 사업계획(건축허가) 변경 의견서','설계42 계약자 통지 동의사항 체크리스트'],
+      steps:[
+        { title:'사업계획(건축허가) 변경', start:'접수 시', end:'1차 30일 · 3차 착공전 30일 · 5차 사용승인 전 30일', detail:[
+          '가. 사업계획(건축허가) 변경',
+          '1) 사업계획 변경 리스트 작성 — 건축·전기·설비·토목(조경)·내부디자인 변경사항',
+          '2) 사업계획 변경 검토 회신',
+          '3) 사업계획 변경사항 검토 내용 확인 후 현장 통보',
+          '4) 사업계획 변경사항 감리 의견서 및 감리자 의견서 송부',
+          '5) 사업계획 변경 결과 시행품의 및 계약자 통지사항 협의요청 처리',
+          '6) 계약자 통지사항 자료 작성 및 영업관리팀 송부',
+          '7) 사업계획 변경사항 계약자 통지 결과(증빙자료 등) 송부',
+          '8) 사업계획 변경 접수',
+          '나. 계약자 동의사항 발생 시 : 현장',
+          '1) 사업계획서 전·후 도면 및 리스트 작성, 본사 검토 요청',
+          '2) 사업계획서 변경사항 검토 및 설계자 검토의견',
+          '3) 계약자 동의 필요여부 확인 — 필요 시 설계도서 검토, 현장제안서 협의',
+          '4) 시행품의 완료 후 협의자료 검토',
+          '5) 감리자 의견서 및 동의서류 작성, 유관부서 협조요청(영업관리팀)',
+          '6) (계약자) 사업계획변경 접수 품의',
+          '7) (계약자) 부동의 시 계약자 부동의 현황보고',
+          '다. 계약자 동의사항 발생 시 : 본사',
+          '1) 변경사항 발생에 따른 설계변경 현장 검토요청',
+          '2) 시공가능여부 및 변경가능여부 검토 결과 본사 송부',
+          '3) 현장별 적용여부 및 계약자 동의 필요여부 확인 시 협의진행',
+          '4) 품의완료 후 계약자 동의자료 작성 및 유관부서 협조요청(주관부서)',
+          '5) (계약자) 사업계획변경 접수 품의',
+          '6) (계약자) 부동의 시 계약자 부동의 현황보고',
+        ]},
+      ]
+    },
+    { id:'support', name:'현장지원업무', dept:'현장',
+      steps:[
+        { title:'현장지원', start:'요청 시', end:'회신일', detail:[
+          '가. 각 현장 사내공문 접수',
+          '나. 요청사항에 대한 시행 적정성 검토',
+          '1) 현장 시행 및 협업사항 발생 시 사내공문·업무협조문으로 요청 — 관련자료 접수',
+          '2) 시행요청사항 적정성 검토 — 공정상황·시공성·금액 적정성·품질 고려',
+          '다. 보고/시행 품의',
+          '1) 유관부서 합의 진행 — 관련자료 접수',
+          '라. 업무협조문 및 사내공문 통보',
+          '1) 시행·집행 등 금액발생 시',
+          '2) 금액 미발생 시 현장 및 유관부서 사내공문 통보(승인사항 시행)',
+        ]},
+        { title:'긴급 대책회의', start:'발생 시', end:'2일 이내', detail:[
+          '가. 특수사항 발생 시 현장으로부터 사내공문 접수',
+          '나. 긴급대책회의 실시',
+          '1) 현장 및 유관부서를 소집하여 긴급대책회의 실시 후 대책 마련',
+          '2) 특수사항에 대한 대책 수립',
+          '다. 특수사항에 대한 대책 보고',
+          '라. 결과 회신',
+          '1) 보고완료 후 현장에 긴급사항 업무 처리 통보',
+          '2) 처리완료 사항을 사내공문으로 접수',
+          '마. 결과 보고',
+          '1) 긴급사항 처리 시행 후 그 결과를 보고',
+        ]},
+      ]
+    },
+    { id:'govrel', name:'대관업무', dept:'현장, 설계부, 공무부, 자금부, 관할소방서',
+      forms:['설비1 시방서','설비2 내역서','설비3 예정공정표','설비5 지입자재사양서','설비6 계약서','설비11 도면','설비23 수량집계대비표','설비26 지입지급자재관리절차','설비21 소방착공신고서','설비4 사용인감계'],
+      steps:[
+        { title:'가설공사 업무(심정개발)', start:'착공 전 64일', end:'착공 전 50일', detail:[
+          '가. 현장 심정개발 가능여부 확인',
+          '1) 심정개발(보고품의) — 공급처로부터 부담금 고지서 수령 후 부담금 납부 진행품의서 작성',
+          '2) 심정 개발 불가 시 해당지역 상수도 공급처에 공급 신청',
+          '나. 심정공사 확정',
+          '다. 심정공사 보고/집행품의',
+          '라. 심정공사 업무조율',
+          '1) 심정개발 — 업체선정',
+          '2) 상수도 공급 — 비용납부',
+        ]},
+        { title:'소방관련 업무', start:'필요 시', end:'소방착공 시', detail:[
+          '가. 관할소방서와 소방관련 업무협의',
+          '나. 소방착공신고 업무지원',
+          '1) 소방기술자 선임 검토 및 소방착공신고 서류 준비',
+          '다. 해당 현장으로 소방착공관련 사내공문 발송',
+          '1) 현장에 소방착공관련 서류 발송 후 현장에서 소방착공신고',
+        ]},
+        { title:'신청업무(지역난방·도시가스·상수도)', flow:'49', start:'필요 시', end:'필요 시', detail:[
+          '가. 지역난방 공급 신청(열사용 신청)',
+          '1) 난방면적 산출 사내공문 발송 및 회신',
+          '2) 열사용 신청용 사용인감계 사내공문 품의',
+          '3) 열사용 신청서류 현장 발송 — 현장에서 열사용 신청(열사용기자재등록, 인감증명서, 사업자등록증, 사용인감계)',
+          '4) 공급처로부터 부담금 고지서 수령',
+          '5) 부담금 납부 집행품의(고지서 첨부)',
+          '6) 부담금 납부 업무협조문 발송',
+          '나. 도시가스 공급 신청',
+          '1) 도시가스 부담금 고지서 수령',
+          '2) 현장에서 도시가스 사용 신청 접수(현장 공무부)',
+          '3) 부담금 납부 업무협조문 발송',
+          '4) 고지서 통보 및 부담금 납부 요청',
+          '다. 상수도(하수도) 공급 신청',
+          '1) 상수도(하수도) 부담금 고지서 수령 — 현장에서 사용 신청 접수',
+          '2) 부담금 납부 집행품의',
+          '3) 부담금 납부 업무협조문 발송(고지서 통보 및 납부 요청)',
+        ]},
+      ]
+    },
+  ]
+},
+{
+  id:'subcontract', name:'도급현장관리', color:'subcontract',
+  desc:'도급현장에서 건축·토목·전기·설비 4개 팀이 어떤 업무를 각자 맡고, 어디서 함께 협업하는지 정리한 분장 기준입니다.',
+  groups:[
+    { id:'assignment', name:'도급현장 업무분장표 [설비]', table:true,
+      cols:['구분','건축현장','토목현장','전기현장','설비현장','비고'],
+      rows:[
+        ['운용협약서','건축팀','토목사업팀','전기팀','설비팀',''],
+        ['방침결정','건축팀','토목사업팀','전기팀','설비팀',''],
+        ['품질점검','건축팀','토목사업팀','전기팀','설비팀',''],
+        ['ES관리','공무부(전 현장 공통)','공무부(전 현장 공통)','공무부(전 현장 공통)','공무부(전 현장 공통)','월간보고, 결과보고'],
+        ['도급기성청구','현장 건축외주팀','현장 토목외주팀','현장 전기·공무부','현장 설비·공무부','정: 현장 / 부: 외주+기술부'],
+        ['기성검사','건축외주팀','토목외주팀','전기팀','설비팀','전기·설비 도급액 100억 이상: 공무부'],
+        ['자금수지','건축외주팀','토목외주팀','전기팀','설비팀',''],
+        ['선급금 시행(수취/반환)','건축팀','토목사업팀','전기팀','설비팀',''],
+        ['선급금 집행(도급·하도급)','공무부(전 현장 공통)','공무부(전 현장 공통)','공무부(전 현장 공통)','공무부(전 현장 공통)',''],
+        ['공동도급사 원가안분','건축팀·건축외주팀·회계','토목사업팀·토목외주팀·회계','전기팀·공무부·회계','설비팀·공무부·회계','정: 회계·공무부 / 부: 기술부'],
+      ]
+    }
+  ]
+}
+];
+
+/* ============================= HELPERS ============================= */
+const CAT_COLOR_VARS = { accent:['--accent','--accent-soft'], quality:['--quality','--quality-soft'], general:['--general','--general-soft'], subcontract:['--subcontract','--subcontract-soft'] };
+
+function levelOf(line){
+  if(/^[①②③④⑤⑥⑦⑧⑨]/.test(line)) return 4;
+  if(/^\(\d+\)/.test(line)) return 3;
+  if(/^[가-하]\)/.test(line)) return 2;
+  if(/^\d+\)/.test(line)) return 1;
+  if(/^[가-하]\./.test(line)) return 0;
+  if(/^\[/.test(line)) return 0;
+  if(/^-/.test(line)) return 2;
+  return 0;
+}
+
+function el(tag, cls, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+/* ============================= RENDER ============================= */
+const catsRoot = document.getElementById('categories');
+const pillsRoot = document.getElementById('pills');
+const allFormCards = [];
+
+pillsRoot.appendChild(el('button','pill active','전체')).addEventListener('click', ()=>filterCategory('all'));
+CATEGORIES.forEach(cat=>{
+  const p = el('button','pill', cat.name);
+  p.addEventListener('click', ()=>{ document.getElementById('cat-'+cat.id).scrollIntoView({behavior:'smooth', block:'start'}); });
+  pillsRoot.appendChild(p);
+});
+function filterCategory(){}
+
+CATEGORIES.forEach(cat=>{
+  const [accVar, softVar] = CAT_COLOR_VARS[cat.color];
+  const section = el('section','category');
+  section.id = 'cat-'+cat.id;
+  section.style.setProperty('--cat-color', `var(${accVar})`);
+  section.style.setProperty('--cat-soft', `var(${softVar})`);
+
+  const head = el('div','cat-head');
+  head.appendChild(el('span','cat-swatch')).style.background = `var(${accVar})`;
+  head.appendChild(el('h2', null, cat.name));
+  section.appendChild(head);
+  section.appendChild(el('p','cat-desc', cat.desc));
+
+  cat.groups.forEach(group=>{
+    const g = el('div','group');
+    g.id = 'group-'+group.id;
+
+    const gh = el('div','group-head');
+    gh.appendChild(el('h3', null, group.name));
+    const meta = el('div','group-meta');
+    if(group.dept) meta.appendChild(el('span', null, `<b>유관부서</b> ${group.dept}`));
+    if(group.flow) meta.appendChild(el('span', null, `<b>흐름도</b> ${group.flow}`));
+    gh.appendChild(meta);
+    g.appendChild(gh);
+
+    if(group.table){
+      const wrap = el('div','assign-table-wrap');
+      const table = el('table','assign');
+      const thead = el('thead');
+      const trh = el('tr');
+      group.cols.forEach(c=>trh.appendChild(el('th', null, c)));
+      thead.appendChild(trh); table.appendChild(thead);
+      const tbody = el('tbody');
+      group.rows.forEach(r=>{
+        const tr = el('tr');
+        r.forEach((c,i)=>{
+          const td = el('td', i===r.length-1 ? 'note':null, c);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      wrap.appendChild(table);
+      g.appendChild(wrap);
+      catsRoot.appendChild(section);
+      section.appendChild(g);
+      return;
+    }
+
+    const flowRow = el('div','flow-row');
+    const detailPanel = el('div','detail-panel');
+    const detailInner = el('div','detail-inner');
+    detailPanel.appendChild(detailInner);
+
+    function renderDetail(idx){
+      const step = group.steps[idx];
+      detailInner.innerHTML = '';
+      const row = el('div','detail-title-row');
+      row.appendChild(el('h4', null, `${idx+1}. ${step.title}${step.tag ? ` <span class="chip">${step.tag}</span>`:''}`));
+      const chips = el('div','chip-row');
+      if(step.start) chips.appendChild(el('span','chip date', `착수 · ${step.start}`));
+      if(step.end) chips.appendChild(el('span','chip date', `완료 · ${step.end}`));
+      if(step.flow) chips.appendChild(el('span','chip', `흐름도 ${step.flow}`));
+      row.appendChild(chips);
+      detailInner.appendChild(row);
+
+      const ul = el('ul','detail-list');
+      step.detail.forEach(line=>{
+        const lvl = levelOf(line);
+        const li = el('li', 'lvl-'+lvl, line);
+        li.style.setProperty('--lvl', lvl);
+        ul.appendChild(li);
+      });
+      detailInner.appendChild(ul);
+
+      if(group.forms && group.forms.length){
+        const fb = el('div','forms-box');
+        fb.appendChild(el('div','lbl','산출물 및 서식'));
+        const cr = el('div','chip-row');
+        group.forms.forEach(f=>cr.appendChild(el('span','chip', f)));
+        fb.appendChild(cr);
+        detailInner.appendChild(fb);
+      }
+
+      [...flowRow.querySelectorAll('.step-chip')].forEach((c,i)=>c.classList.toggle('active', i===idx));
+    }
+
+    group.steps.forEach((step, idx)=>{
+      if(idx>0){
+        const sep = el('div','arrow-sep','<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>');
+        flowRow.appendChild(sep);
+      }
+      const chip = el('button','step-chip');
+      chip.innerHTML = `<span class="num">STEP ${idx+1}</span><span class="ti">${step.title}</span><span class="dates">${step.start||''}${step.end? ' → '+step.end:''}</span>`;
+      chip.addEventListener('click', ()=>renderDetail(idx));
+      chip.dataset.search = (step.title+' '+(step.detail||[]).join(' ')+' '+(group.dept||'')+' '+(group.forms||[]).join(' ')).toLowerCase();
+      flowRow.appendChild(chip);
+    });
+
+    g.appendChild(flowRow);
+    g.appendChild(detailPanel);
+    section.appendChild(g);
+    renderDetail(0);
+
+    if(group.forms) group.forms.forEach(f=>allFormCards.push({code:f.split(' ')[0], name:f.split(' ').slice(1).join(' '), group:group.name}));
+  });
+
+  catsRoot.appendChild(section);
+});
+
+/* ---------- forms index ---------- */
+const formsGrid = document.getElementById('forms-grid');
+const seen = new Map();
+allFormCards.forEach(f=>{
+  if(!seen.has(f.code)) seen.set(f.code, {name:f.name, groups:new Set()});
+  seen.get(f.code).groups.add(f.group);
+});
+[...seen.entries()].sort((a,b)=>a[0].localeCompare(b[0],'ko')).forEach(([code,info])=>{
+  const c = el('div','form-card');
+  c.innerHTML = `<span class="code">${code}</span>${info.name}<div style="margin-top:4px;color:var(--ink-faint);font-size:11px;">${[...info.groups].join(' · ')}</div>`;
+  formsGrid.appendChild(c);
+});
+
+/* ---------- search ---------- */
+document.getElementById('search').addEventListener('input', (e)=>{
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.group').forEach(g=>{
+    if(g.querySelector('table')){ g.hidden=false; return; }
+    const chips = [...g.querySelectorAll('.step-chip')];
+    let anyMatch = !q;
+    chips.forEach((c,i)=>{
+      const match = !q || (c.dataset.search||'').includes(q);
+      if(match) anyMatch = true;
+      c.style.display = q && !match ? 'none' : '';
+    });
+    const seps = g.querySelectorAll('.arrow-sep');
+    seps.forEach(s=>s.style.display = q ? 'none' : '');
+    g.hidden = q && !anyMatch;
+  });
+  document.querySelectorAll('section.category').forEach(sec=>{
+    const visible = [...sec.querySelectorAll('.group')].some(g=>!g.hidden);
+    sec.hidden = q && !visible;
+  });
+});
+
+/* ============================= OVERVIEW DIAGRAM ============================= */
+(function(){
+  const lanes = [
+    {cat:'process', label:'공정관리', y:70, items:[{id:'group-vendor',name:'업체선정 및 관리'},{id:'group-integrated',name:'통합공정관리'}]},
+    {cat:'quality', label:'품질관리', y:150, items:[{id:'group-drawing',name:'도면검토'},{id:'group-inspect',name:'품질점검'}]},
+    {cat:'general', label:'일반관리', y:230, items:[{id:'group-tasks',name:'일반업무'},{id:'group-permit',name:'인허가'},{id:'group-govrel',name:'대관업무'},{id:'group-support',name:'현장지원업무'}]},
+  ];
+  const colorVar = {process:'var(--accent)', quality:'var(--quality)', general:'var(--general)'};
+  const softVar = {process:'var(--accent-soft)', quality:'var(--quality-soft)', general:'var(--general-soft)'};
+  const W = 1080, H = 330;
+  const startX = 40, endX = W-70, laneStartX = 150;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="설비팀 업무절차 전체 흐름도: 프로젝트 수주부터 준공까지 공정관리, 품질관리, 일반관리가 동시에 진행되고 준공 시 도급현장 업무분장으로 이어진다">`;
+  svg += `<defs><marker id="ov-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>`;
+  svg += `<g style="color:var(--ink-faint)">`;
+  svg += `<rect x="${startX}" y="${H/2-22}" width="76" height="44" rx="8" fill="var(--surface-2)" stroke="var(--line)"/>`;
+  svg += `<text x="${startX+38}" y="${H/2-4}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">프로젝트</text>`;
+  svg += `<text x="${startX+38}" y="${H/2+12}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">수주</text>`;
+  svg += `<rect x="${endX-6}" y="${H/2-22}" width="76" height="44" rx="8" fill="var(--surface-2)" stroke="var(--line)"/>`;
+  svg += `<text x="${endX+32}" y="${H/2-4}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">준공 및</text>`;
+  svg += `<text x="${endX+32}" y="${H/2+12}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">정산</text>`;
+  svg += `</g>`;
+
+  lanes.forEach(lane=>{
+    const c = colorVar[lane.cat], s = softVar[lane.cat];
+    svg += `<line x1="${startX+76}" y1="${H/2}" x2="${laneStartX}" y2="${lane.y}" stroke="${c}" stroke-width="1.5" opacity=".55"/>`;
+    svg += `<text x="${startX}" y="${lane.y-24}" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="${c}">${lane.label}</text>`;
+    const n = lane.items.length;
+    const usable = endX - laneStartX - 40;
+    const gap = usable / n;
+    let prevCx = null;
+    lane.items.forEach((it, i)=>{
+      const bw = Math.min(gap-24, 190);
+      const cx = laneStartX + gap*i + gap/2;
+      const x = cx - bw/2;
+      if(prevCx!==null){
+        svg += `<line x1="${prevCx}" y1="${lane.y}" x2="${x}" y2="${lane.y}" stroke="${c}" stroke-width="1.5" opacity=".55" marker-end="url(#ov-arrow)" style="color:${c}"/>`;
+      }
+      svg += `<g class="dnode" data-target="${it.id}" style="color:${c}">`;
+      svg += `<rect x="${x}" y="${lane.y-18}" width="${bw}" height="36" rx="8" fill="${s}" stroke="${c}" stroke-width="1.3"/>`;
+      svg += `<text class="dlabel" x="${cx}" y="${lane.y+4}" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif" font-size="12" font-weight="600" fill="var(--ink)">${it.name}</text>`;
+      svg += `</g>`;
+      prevCx = x+bw;
+    });
+    svg += `<line x1="${prevCx}" y1="${lane.y}" x2="${endX}" y2="${H/2 + (lane.y<H/2?8:-8)}" stroke="${c}" stroke-width="1.5" opacity=".55"/>`;
+  });
+
+  svg += `</svg>`;
+  const host = document.getElementById('overview-diagram');
+  host.innerHTML = svg;
+  host.querySelectorAll('.dnode').forEach(n=>{
+    n.addEventListener('click', ()=>{
+      const t = document.getElementById(n.dataset.target);
+      if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+})();
+</script>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>설비팀 메인페이지</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/*
+  메인페이지 레이아웃: 상단 브랜드 헤더 → 오늘의 건설업계 뉴스 →
+  업무절차서 / 표준시방서 / 주간공정표 작성으로 바로 가는 3개 버튼.
+  색상은 주간공정표 생성(팀의 다른 사내 도구)과 같은 navy/cyan 계열을 사용해
+  같은 제품군으로 보이도록 통일.
+*/
+:root{
+  --bg:#f3f2ee;
+  --surface:#ffffff;
+  --surface-2:#eef1f5;
+  --ink:#16202c;
+  --ink-dim:#4c5866;
+  --ink-faint:#8993a1;
+  --line:#d9dee4;
+  --line-soft:#e8ebef;
+  --accent:#19407D;        /* 주간공정표 (도구 자체 색) */
+  --accent-soft:#e4ebf4;
+  --accent-ink:#ffffff;
+  --step1:#00ADE4;         /* 업무절차서 */
+  --step1-soft:#e0f4fb;
+  --step2:#002855;         /* 표준시방서 */
+  --step2-soft:#e3e8ee;
+  --good:#1c7a4a;
+  --good-soft:#e8f6ee;
+  --warn:#8a5a12;
+  --warn-soft:#fbf0dd;
+  --shadow: 0 1px 2px rgba(20,30,35,.06), 0 6px 20px -8px rgba(20,30,35,.12);
+  --radius: 12px;
+  color-scheme: light;
+  font-synthesis:none;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161c; --surface:#1a2028; --surface-2:#212832;
+    --ink:#e8ecf1; --ink-dim:#a9b3bf; --ink-faint:#6d7885;
+    --line:#2c3541; --line-soft:#232b35;
+    --accent:#4f86d6; --accent-soft:#1c2836; --accent-ink:#0b1420;
+    --step1:#5cc9ef; --step1-soft:#132832;
+    --step2:#7c93b8; --step2-soft:#1c2432;
+    --good:#5fd08c; --good-soft:#122a1d;
+    --warn:#e8b364; --warn-soft:#2c2413;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161c; --surface:#1a2028; --surface-2:#212832;
+  --ink:#e8ecf1; --ink-dim:#a9b3bf; --ink-faint:#6d7885;
+  --line:#2c3541; --line-soft:#232b35;
+  --accent:#4f86d6; --accent-soft:#1c2836; --accent-ink:#0b1420;
+  --step1:#5cc9ef; --step1-soft:#132832;
+  --step2:#7c93b8; --step2-soft:#1c2432;
+  --good:#5fd08c; --good-soft:#122a1d;
+  --warn:#e8b364; --warn-soft:#2c2413;
+  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -12px rgba(0,0,0,.55);
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans KR','Noto Sans KR',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; padding-inline:0; }
+h1,h2,h3,h4{ text-wrap:balance; margin:0; font-weight:700; letter-spacing:-.01em; }
+p{ margin:0; }
+a{ color:inherit; }
+.mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+button{ font-family:inherit; }
+
+.brand-header{ position:sticky; top:env(safe-area-inset-top,0px); z-index:40; border-bottom:1px solid var(--line); }
+.brand-top{ background:var(--surface); }
+.brand-top-inner{ max-width:1320px; margin:0 auto; padding:10px 22px; display:flex; align-items:center; gap:9px; }
+.brand-logo{ width:26px; height:26px; border-radius:50%; background:var(--step1); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px; flex:none; }
+.brand-name{ font-weight:700; color:var(--accent); font-size:15px; letter-spacing:-0.01em; }
+.brand-nav{ background:var(--step2); }
+.brand-nav-inner{ max-width:1320px; margin:0 auto; padding:8px 22px; color:#fff; font-size:13px; font-weight:600; letter-spacing:-0.01em; }
+
+main{ max-width:1320px; margin:0 auto; padding:28px 22px 64px; display:flex; flex-direction:column; gap:26px; }
+
+.hero{ display:flex; flex-direction:column; gap:6px; }
+.hero h2{ font-size:24px; }
+.hero .sub{ color:var(--ink-dim); font-size:13.5px; }
+
+/* 뉴스 카드 */
+.panel{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px 20px; }
+.panel-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+.panel-head h3{ font-size:15.5px; }
+.panel-head .updated{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); }
+.news-list{ display:flex; flex-direction:column; }
+.news-item{ display:flex; align-items:baseline; gap:12px; padding:11px 2px; border-top:1px solid var(--line-soft); text-decoration:none; color:inherit; min-width:0; }
+.news-item:first-child{ border-top:none; }
+.news-item .src{ flex:none; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; }
+.news-item .title{ flex:1; font-size:13.5px; min-width:0; }
+.news-item:hover .title{ text-decoration:underline; text-underline-offset:2px; }
+.news-item .date{ flex:none; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); }
+
+.news-group + .news-group{ margin-top:14px; }
+.news-group-label{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.04em; color:var(--ink-faint); padding:0 2px; }
+.news-group .news-list{ margin-top:2px; }
+
+/* 부서 공지사항 */
+.notice-panel{ border-left:3px solid var(--warn); }
+.notice-list{ display:flex; flex-direction:column; }
+.notice-item{ padding:9px 2px; border-top:1px solid var(--line-soft); font-size:13.5px; display:flex; gap:10px; align-items:baseline; }
+.notice-item:first-child{ border-top:none; }
+.notice-item .tag{ flex:none; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--warn); background:var(--warn-soft); border-radius:999px; padding:2px 8px; }
+.notice-item .txt{ flex:1; color:var(--ink-dim); }
+a.notice-item{ text-decoration:none; color:inherit; }
+a.notice-item .txt{ color:var(--ink); }
+a.notice-item:hover .txt{ text-decoration:underline; text-underline-offset:2px; }
+.notice-item .due{ flex:none; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); }
+.notice-empty{ color:var(--ink-faint); font-size:13px; }
+
+/* 바로가기 버튼 3개 */
+.quicklinks{ display:flex; flex-direction:column; gap:14px; }
+@media (min-width:980px){
+  .quicklinks{ flex-direction:row; }
+  .quicklinks .qlink{ flex:1 1 0; }
+}
+.qlink{ display:flex; align-items:center; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; text-decoration:none; color:inherit; transition:filter .15s ease, transform .15s ease; }
+.qlink:hover{ filter:brightness(1.0); transform:translateY(-1px); }
+.qlink .badge{ width:42px; height:42px; border-radius:10px; background:var(--c,var(--accent)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; flex:none; }
+.qlink .txt{ min-width:0; flex:1; display:flex; flex-direction:column; gap:2px; }
+.qlink .txt .t{ font-size:15px; font-weight:700; }
+.qlink .txt .s{ font-size:12px; color:var(--ink-dim); }
+.qlink .arrow{ flex:none; color:var(--ink-faint); font-size:16px; }
+
+footer.note{ max-width:1320px; margin:0 auto; padding:0 22px 40px; color:var(--ink-faint); font-size:12px; display:flex; flex-direction:column; gap:4px; }
+
+@media (max-width:640px){
+  .hero h2{ font-size:21px; }
+  .news-item{ flex-wrap:wrap; }
+  .news-item .date{ order:3; width:100%; }
+}
+@media (max-width:420px){
+  .brand-top-inner{ padding:10px 16px; }
+  .brand-nav-inner{ padding:8px 16px; }
+  .panel{ padding:16px 16px 18px; }
+}
+</style>
+</head>
+<body>
+<div class="brand-header">
+  <div class="brand-top"><div class="brand-top-inner"><span class="brand-logo">D</span><span class="brand-name">대방산업개발</span></div></div>
+  <div class="brand-nav"><div class="brand-nav-inner">업무도우미 · 설비팀 메인페이지</div></div>
+</div>
+
+<main>
+  <section class="hero">
+    <h2>설비팀 메인페이지</h2>
+    <p class="sub">오늘의 건설업계 소식과 부서 문서 바로가기입니다.</p>
+  </section>
+
+  <section class="panel notice-panel">
+    <div class="panel-head">
+      <h3>부서 공지사항</h3>
+    </div>
+    <div class="notice-list" id="noticeList">
+      <a class="notice-item" href="공지_건설기술인협회_승급교육.html" target="_blank" rel="noopener">
+        <span class="tag">전파사항</span>
+        <span class="txt">건설기술인 협회 승급교육 및 회비 관련 전파사항</span>
+        <span class="due mono">~11.30</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h3>업계 소식</h3>
+      <span class="updated" id="newsUpdated">갱신 —</span>
+    </div>
+    <div class="news-group">
+      <div class="news-group-label">오늘의 건설업계 뉴스</div>
+      <div class="news-list" id="newsList"></div>
+    </div>
+    <div class="news-group">
+      <div class="news-group-label">기계설비신문</div>
+      <div class="news-list" id="kmecList"></div>
+    </div>
+  </section>
+
+  <div class="quicklinks">
+    <a class="qlink" style="--c:var(--step1)" href="https://sleepinghome.github.io/-/%EC%84%A4%EB%B9%84%ED%8C%80_%EC%97%85%EB%AC%B4%EC%A0%88%EC%B0%A8%EC%84%9C.html" target="_blank" rel="noopener">
+      <span class="badge mono">01</span>
+      <span class="txt"><span class="t">부서 업무절차서</span><span class="s">현설자료 접수부터 준공 정산까지 전체 절차</span></span>
+      <span class="arrow">↗</span>
+    </a>
+    <a class="qlink" style="--c:var(--step2)" href="https://sleepinghome.github.io/-/%ED%91%9C%EC%A4%80%EC%8B%9C%EB%B0%A9%EC%84%9C.html" target="_blank" rel="noopener">
+      <span class="badge mono">02</span>
+      <span class="txt"><span class="t">표준시방서</span><span class="s">공종별 표준시방서 26종, 검색 · 원문 대조</span></span>
+      <span class="arrow">↗</span>
+    </a>
+    <a class="qlink" style="--c:var(--accent)" href="https://claude.ai/artifact/Xw59Pg4Dwmmw8Zy3c32JtW" target="_blank" rel="noopener">
+      <span class="badge mono">03</span>
+      <span class="txt"><span class="t">주간공정표 작성</span><span class="s">현장 파일 업로드 → AI 초안 자동 생성</span></span>
+      <span class="arrow">↗</span>
+    </a>
+  </div>
+</main>
+
+<footer class="note">
+  <span>정확한 기준은 각 문서 원문(업무절차서 7-B-2, 표준시방서 원본 PPT)을 확인하세요.</span>
+  <span>궁금한 점은 사수 또는 파트장에게 문의하세요 · 최종 갱신 2026-09-30</span>
+</footer>
+
+<script>
+(function(){
+  // 뉴스는 매일 자동 갱신되는 정적 스냅샷입니다 (게시 시점 기준).
+  var NEWS_UPDATED = '2026-09-30 06:52 KST 갱신';
+  var NEWS = [
+    ['파이낸셜뉴스', '전국 건축물 743만동·43억㎡...허가·착공·준공은 모두 감소', '09.30', 'https://fnnews.com/news/202609300731333604'],
+    ['파이낸셜뉴스', "건설주, 하루 만에 급락 전환…AI 기대감에도 증시 하락에 '휘청'", '09.29', 'https://fnnews.com/news/202609291323340215']
+  ];
+
+  var updatedEl = document.getElementById('newsUpdated');
+  if (updatedEl) updatedEl.textContent = NEWS_UPDATED;
+
+  var list = document.getElementById('newsList');
+  if (list){
+    list.innerHTML = NEWS.map(function(n){
+      var src = n[0], title = n[1], date = n[2], url = n[3];
+      return '<a class="news-item" href="' + url + '" target="_blank" rel="noopener">' +
+        '<span class="src">' + src + '</span>' +
+        '<span class="title">' + title + '</span>' +
+        '<span class="date mono">' + date + '</span></a>';
+    }).join('');
+  }
+
+  // 기계설비신문(kmecnews.co.kr) — 설비팀 업계 전문지, 2건
+  var KMEC_UPDATED = '2026-09-30 06:52 KST 갱신';
+  var KMEC_NEWS = [
+    ['기계설비신문', "[경제 브리핑] 7월 건설수주 30.6%↓", '', 'https://www.kmecnews.co.kr/news/articleView.html?idxno=51814'],
+    ['기계설비신문', '기계설비건설협회, 2026 상반기 건설업 시중노임단가 안내', '', 'https://www.kmecnews.co.kr/news/articleView.html?idxno=44925']
+  ];
+
+  var kmecUpdatedEl = document.getElementById('kmecUpdated');
+  if (kmecUpdatedEl) kmecUpdatedEl.textContent = KMEC_UPDATED;
+
+  var kmecList = document.getElementById('kmecList');
+  if (kmecList){
+    kmecList.innerHTML = KMEC_NEWS.map(function(n){
+      var src = n[0], title = n[1], date = n[2], url = n[3];
+      return '<a class="news-item" href="' + url + '" target="_blank" rel="noopener">' +
+        '<span class="src">' + src + '</span>' +
+        '<span class="title">' + title + '</span>' +
+        '<span class="date mono">' + date + '</span></a>';
+    }).join('');
+  }
+})();
+</script>
+</body>
+</html>
